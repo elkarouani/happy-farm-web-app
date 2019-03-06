@@ -1,0 +1,56 @@
+body {
+	margin: 20px;
+}
+
+div {
+/*	border: 1px solid green;
+	border-radius: 15px;
+	color: green;
+	height: 6rem;
+*/	text-align: center;
+}
+
+.navbar {
+	text-align: center;
+	height: 2rem;
+}
+
+.left-angle {
+	border: 1px solid green;
+	border-radius: 15px;
+	color: green;
+	height: 19rem;
+}
+
+.right-angle-1 {
+	height: 22rem;
+}
+
+.right-angle-2 {
+	width: 18.5rem;
+	height: 18rem;
+}
+
+img {
+	width: 75%;
+    height: auto;
+}
+
+.logo {
+	height: 12rem;
+}
+
+.donate {
+	font-size: x-large;
+	font-style: oblique;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.card-image {
+	width: 50%;
+    height: auto;
+    align-self: center;
+}
