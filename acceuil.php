@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Bootstrap Example</title>
+        <title>Acceuil</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -25,7 +25,7 @@
             <div class="row content">
                 <div class="col-sm-2 sidenav">
                     <div class="btn-group-vertical  btn-group btn-group-lg">
-                        <button type="button" class="btn btn-info">Appleeeeeeee</button>
+                        <a class="btn btn-info" href="acceuil.php?action=transportation">Réservation des transports</a>
                         <button type="button" class="btn btn-info">Samsung</button>
                         <button type="button" class="btn btn-info">Sony</button>
                         <button type="button" class="btn btn-info">Apple</button>
@@ -36,10 +36,16 @@
                         <button type="button" class="btn btn-info">Sony</button>
                     </div>
                 </div>
-
-                <div class="col-sm-9 text-right"> 
-                    <h4 id="greeting">Welcome [User Name]</h4>
-                </div>
+                
+                <?php if (isset($_GET['action']) && $_GET['action'] == 'transportation'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("Transport.html"); ?>
+                    </div>
+                <?php else: ?>
+                    <div class="col-sm-9 text-right"> 
+                        <h4 id="greeting">Welcome [User Name]</h4>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         

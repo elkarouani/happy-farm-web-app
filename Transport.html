@@ -1,43 +1,34 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Transport</title>
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="row justify-content-between" style="margin: 40px 0 0 200px;">
-				<div class="col-4">
-					<button id="reserveButton" class="btn btn-primary">Reserver</button>
-				</div>
-				<div class="col-4">
-					<select id="transportsSelection" style="width: 12rem;">
-						<option value="" selected="selected"></option>
-					</select>
-				</div>
-			</div>
-			<div class="row" style="margin: 40px 0 0 0;">
-				<div class="col">
-					<div id="message" class="alert alert-success text-center" role="alert" style="width: 50%; margin-left: 20rem;display:none;"></div>
-				</div>
-			</div>
-			<div class="row" style="margin: 40px 0 0 0;">
-				<div class="col">
-					<table id="transportTable" class="table">
-						<thead>
-							<th>Ref.</th>
-							<th>Titre</th>
-							<th>Télephone</th>
-							<th>Adresse</th>
-							<th>Charge</th>
-							<th>Prix</th>
-						</thead>
-						<tbody><tr></tr></tbody>
-					</table>
-				</div>
-			</div>
+<div class="container">
+	<div class="row justify-content-between" style="margin: 40px 0 0 200px;">
+		<div class="col-4">
+			<button id="reserveButton" class="btn btn-primary">Reserver</button>
 		</div>
+		<div class="col-4">
+			<select id="transportsSelection" style="width: 12rem;">
+				<option value="" selected="selected"></option>
+			</select>
+		</div>
+	</div>
+	<div class="row" style="margin: 40px 0 0 20px;">
+		<div class="col">
+			<div id="message" class="alert alert-success text-center" role="alert" style="width: 50%; margin-left: 20rem;display:none;"></div>
+		</div>
+	</div>
+	<div class="row" style="margin: 40px 0 0 120px;">
+		<div class="col">
+			<table id="transportTable" class="table">
+				<thead>
+					<th>Ref.</th>
+					<th>Titre</th>
+					<th>Télephone</th>
+					<th>Adresse</th>
+					<th>Charge</th>
+					<th>Prix</th>
+				</thead>
+				<tbody><tr></tr></tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-		<script src="assets/js/transportScript.js"></script>
-	</body>
-</html>
+<script src="assets/js/transportScript.js"></script>

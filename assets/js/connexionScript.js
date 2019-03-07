@@ -27,6 +27,6 @@ const extractUserInfoFromXml = (xml) => {
 save.addEventListener('click', (event) => {
     let data = extractUserInfoFromXml(xml);
     if (data[0] == emailInput.value && data[1] == passwordInput.value) {
-        window.location.replace("acceuil.html");
+        window.location.replace("acceuil.php");
     }
 });
