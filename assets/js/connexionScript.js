@@ -1,25 +1,32 @@
-let emailInput = document.getElementById("emailInput");
-let passwordInput = document.getElementById("passwordInput");
-let save = document.getElementById("save");
-let messageOutput = document.getElementById("message");
-let email = "";
-let password = "";
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const save = document.getElementById("save");
+const messageOutput = document.getElementById("message");
+const xml = new XMLHttpRequest();
 
-let xml = new XMLHttpRequest();
+const getXmlData = (xml) => {
+    let xmlData = xml.responseText;
+    if (xmlData) {
+        return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
+    }
+    return xmlData;
+}
 
-xml.open('GET', 'database/users.xml', false);
-xml.send();
-
-let xmlData = xml.responseText;
-if (xmlData) {
-    xmlData = (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
-    let user = xmlData.getElementsByTagName("user")[0];
+const extractDataFromXml = (xml) => {
+    xml.open('GET', 'database/users.xml', false);
+    xml.send();
+    
+    let user = getXmlData(xml).getElementsByTagName("user")[0];
+    
     email = user.getElementsByTagName("email")[0].firstChild.data;
     password = user.getElementsByTagName("password")[0].firstChild.data;
+    
+    return new Array(email, password);
 }
 
 save.addEventListener('click', (event) => {
-    if (email == emailInput.value && password == passwordInput.value) {
+    let data = extractDataFromXml(xml);
+    if (data[0] == emailInput.value && data[1] == passwordInput.value) {
         messageOutput.style.display = 'block';
         messageOutput.innerHTML = "Welcome !!!";
     }
