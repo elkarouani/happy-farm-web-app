@@ -6,8 +6,10 @@ let email = "";
 let password = "";
 
 let xml = new XMLHttpRequest();
+
 xml.open('GET', 'database/users.xml', false);
 xml.send();
+
 let xmlData = xml.responseText;
 if (xmlData) {
     xmlData = (new DOMParser()).parseFromString(xml.responseText, 'text/xml');

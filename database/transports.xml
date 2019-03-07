@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<transportations>
+	<transport>
+		<reference>Jdds87</reference>
+		<title>Ronda</title>
+		<telephone>0666666666</telephone>
+		<adresse>walo ssafi khaliha</adresse>
+		<charge>walo Kg</charge>
+		<prix>999.99</prix>
+	</transport>
+	<transport>
+		<title>Kongo</title>
+	</transport>
+	<transport>
+		<title>Peageau</title>
+	</transport>
+</transportations>
