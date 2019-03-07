@@ -18,8 +18,8 @@ const extractUserInfoFromXml = (xml) => {
     
     let user = getXmlData(xml).getElementsByTagName("user")[0];
     
-    email = user.getElementsByTagName("email")[0].firstChild.data;
-    password = user.getElementsByTagName("password")[0].firstChild.data;
+    let email = user.getElementsByTagName("email")[0].firstChild.data;
+    let password = user.getElementsByTagName("password")[0].firstChild.data;
     
     return new Array(email, password);
 }

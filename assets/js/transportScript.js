@@ -4,6 +4,7 @@ const transportTable = document.getElementById('transportTable');
 const message = document.getElementById('message');
 const reserveButton = document.getElementById('reserveButton');
 const xml = new XMLHttpRequest();
+let price = 0;
 
 // helpers :
 const getXmlData = (xml) => {
@@ -20,6 +21,15 @@ const extractTransportsFromXml = (xml) => {
     return getXmlData(xml).getElementsByTagName("transport");
 }
 
+const extractUserBudgetFromXml = (xml) => {
+	xml.open('GET', 'database/users.xml', false);
+    xml.send();
+
+    let user = getXmlData(xml).getElementsByTagName("user")[0];
+
+    return user.getElementsByTagName("budget")[0].firstChild.data;
+}
+
 const fillSelectInput = (transports) => {
     for(var i = 0, length = transports.length ; i < length; i++){
     	let item = document.createElement('option');
@@ -27,6 +37,10 @@ const fillSelectInput = (transports) => {
     	item.innerHTML = transports[i].childNodes[3].firstChild.data;
     	transportsSelection.appendChild(item);
     }
+}
+
+const getTransportPrice = (transport) => {
+	return transport.childNodes[11].firstChild.data;
 }
 
 const fillTable = (transports, ligne) => {
@@ -58,14 +72,21 @@ transportsSelection.addEventListener('change', (event) => {
 			if (ligne.innerHTML != "") {
 				ligne.innerHTML = "";
 				fillTable(transports[i], ligne);
+				price = parseFloat(getTransportPrice(transports[i]));
 			}else {
 				fillTable(transports[i], ligne);
+				price = parseFloat(getTransportPrice(transports[i]));
 			}
     	}
     }
 });
 
 reserveButton.addEventListener('click', (event) => {
-	message.style.display = 'block';
-	message.innerHTML = "Well reserved";
+	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
+		message.style.display = 'block';
+		message.innerHTML = "Well reserved !!!";
+	} else {
+		message.style.display = 'block';
+		message.innerHTML = "You don't have more budget to buy this transport !!!";
+	}
 });
