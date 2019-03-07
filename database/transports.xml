@@ -2,27 +2,27 @@
 
 <transportations>
 	<transport>
-		<reference>Jdds87</reference>
-		<title>Ronda</title>
-		<telephone>0666666666</telephone>
-		<adresse>walo ssafi khaliha</adresse>
-		<charge>walo Kg</charge>
+		<reference>transport 1</reference>
+		<title>title 1</title>
+		<telephone>phone 1</telephone>
+		<adresse>adresse 1</adresse>
+		<charge>1T</charge>
 		<prix>999.99</prix>
 	</transport>
 	<transport>
-		<reference></reference>
-		<title>Kongo</title>
-		<telephone></telephone>
-		<adresse></adresse>
-		<charge></charge>
-		<prix></prix>
+		<reference>transport 2</reference>
+		<title>title 2</title>
+		<telephone>phone 2</telephone>
+		<adresse>adresse 2</adresse>
+		<charge>2T</charge>
+		<prix>999.99</prix>
 	</transport>
 	<transport>
-		<reference></reference>
-		<title>Peageau</title>
-		<telephone></telephone>
-		<adresse></adresse>
-		<charge></charge>
-		<prix></prix>
+		<reference>transport 3</reference>
+		<title>title 3</title>
+		<telephone>phone 3</telephone>
+		<adresse>adresse 3</adresse>
+		<charge>3T</charge>
+		<prix>999.99</prix>
 	</transport>
 </transportations>
