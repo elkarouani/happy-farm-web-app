@@ -12,7 +12,7 @@ const getXmlData = (xml) => {
     return xmlData;
 }
 
-const extractDataFromXml = (xml) => {
+const extractUserInfoFromXml = (xml) => {
     xml.open('GET', 'database/users.xml', false);
     xml.send();
     
@@ -25,7 +25,7 @@ const extractDataFromXml = (xml) => {
 }
 
 save.addEventListener('click', (event) => {
-    let data = extractDataFromXml(xml);
+    let data = extractUserInfoFromXml(xml);
     if (data[0] == emailInput.value && data[1] == passwordInput.value) {
         messageOutput.style.display = 'block';
         messageOutput.innerHTML = "Welcome !!!";
