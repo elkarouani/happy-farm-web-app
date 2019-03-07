@@ -10,9 +10,19 @@
 		<prix>999.99</prix>
 	</transport>
 	<transport>
+		<reference></reference>
 		<title>Kongo</title>
+		<telephone></telephone>
+		<adresse></adresse>
+		<charge></charge>
+		<prix></prix>
 	</transport>
 	<transport>
+		<reference></reference>
 		<title>Peageau</title>
+		<telephone></telephone>
+		<adresse></adresse>
+		<charge></charge>
+		<prix></prix>
 	</transport>
 </transportations>
