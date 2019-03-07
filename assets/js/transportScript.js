@@ -1,6 +1,8 @@
 // Caching DOM : 
 const transportsSelection = document.getElementById('transportsSelection');
 const transportTable = document.getElementById('transportTable');
+const message = document.getElementById('message');
+const reserveButton = document.getElementById('reserveButton');
 const xml = new XMLHttpRequest();
 
 // helpers :
@@ -61,4 +63,9 @@ transportsSelection.addEventListener('change', (event) => {
 			}
     	}
     }
-})
+});
+
+reserveButton.addEventListener('click', (event) => {
+	message.style.display = 'block';
+	message.innerHTML = "Well reserved";
+});

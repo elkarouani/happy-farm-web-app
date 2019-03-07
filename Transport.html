@@ -8,12 +8,17 @@
 		<div class="container">
 			<div class="row justify-content-between" style="margin: 40px 0 0 200px;">
 				<div class="col-4">
-					<button class="btn btn-primary">Reserver</button>
+					<button id="reserveButton" class="btn btn-primary">Reserver</button>
 				</div>
 				<div class="col-4">
 					<select id="transportsSelection" style="width: 12rem;">
 						<option value="" selected="selected"></option>
 					</select>
+				</div>
+			</div>
+			<div class="row" style="margin: 40px 0 0 0;">
+				<div class="col">
+					<div id="message" class="alert alert-success text-center" role="alert" style="width: 50%; margin-left: 20rem;display:none;"></div>
 				</div>
 			</div>
 			<div class="row" style="margin: 40px 0 0 0;">
