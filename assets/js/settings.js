@@ -41,7 +41,7 @@ const saveUserInfo = (xml) => {
         }
     }
 
-    xml.send("name="+nameInput.value+"&email="+emailInput.value+"&password="+passwordInput.value+"&budget="+budgetInput.value);
+    xml.send("name="+nameInput.value+"&email="+emailInput.value+"&password="+passwordInput.value+"&budget="+budgetInput.value."&action=settings");
 
 };
 

@@ -8,6 +8,8 @@
 		<adresse>adresse 1</adresse>
 		<charge>1T</charge>
 		<prix>999.99</prix>
+		<reserve>false</reserve>
+		<expire></expire>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>
@@ -16,6 +18,8 @@
 		<adresse>adresse 2</adresse>
 		<charge>2T</charge>
 		<prix>999.99</prix>
+		<reserve>false</reserve>
+		<expire></expire>
 	</transport>
 	<transport>
 		<reference>transport 3</reference>
@@ -24,5 +28,7 @@
 		<adresse>adresse 3</adresse>
 		<charge>3T</charge>
 		<prix>999.99</prix>
+		<reserve>false</reserve>
+		<expire></expire>
 	</transport>
 </transportations>

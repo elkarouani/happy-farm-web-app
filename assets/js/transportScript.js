@@ -59,6 +59,21 @@ const fillTable = (transports, ligne) => {
 	ligne.append(ref, title, telephone, adresse, charge, price);
 }
 
+const updateUserBudget = (xml, newBudget) => {
+    xml.open('POST', 'api/userInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    let responce = undefined;
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+        	message.style.display = 'block';
+			message.innerHTML = "Well reserved";	
+		}
+    }
+
+    xml.send("newBudget="+newBudget+"&action=reservation");
+};
+
 // Main :
 let transports = extractTransportsFromXml(xml);
 fillSelectInput(transports);
@@ -83,14 +98,11 @@ transportsSelection.addEventListener('change', (event) => {
 
 reserveButton.addEventListener('click', (event) => {
 
-	console.log(parseFloat(extractUserBudgetFromXml(xml)));
-	console.log(price);
-	
 	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
-		message.style.display = 'block';
-		message.innerHTML = "Well reserved !!!";
+		updateUserBudget(xml, (parseFloat(extractUserBudgetFromXml(xml)) - price));
+		updateTransportInfo(xml, transportsSelection.value)
 	} else {
 		message.style.display = 'block';
-		message.innerHTML = "You don't have more budget to buy this transport !!!";
+		message.innerHTML = "You don't have more budget to buy this transport";
 	}
 });
