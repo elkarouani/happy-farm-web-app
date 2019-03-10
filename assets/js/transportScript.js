@@ -33,9 +33,11 @@ const extractUserBudgetFromXml = (xml) => {
 const fillSelectInput = (transports) => {
     for(var i = 0, length = transports.length ; i < length; i++){
     	let item = document.createElement('option');
-    	item.value = transports[i].childNodes[3].firstChild.data;
-    	item.innerHTML = transports[i].childNodes[3].firstChild.data;
-    	transportsSelection.appendChild(item);
+    	if(transports[i].childNodes[13].firstChild.data == "false"){
+	    	item.value = transports[i].childNodes[3].firstChild.data;
+	    	item.innerHTML = transports[i].childNodes[3].firstChild.data;
+	    	transportsSelection.appendChild(item);
+    	}
     }
 }
 
