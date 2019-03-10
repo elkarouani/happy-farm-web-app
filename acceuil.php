@@ -16,7 +16,7 @@
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav" style="margin-left: 10px;">
-                    <li><a href="#"><ion-icon name="build"></ion-icon> Paramétres</a></li>
+                    <li><a href="acceuil.php?action=settings"><ion-icon name="build"></ion-icon> Paramétres</a></li>
                 </ul>
                 <ul class="navbar-nav" style="margin-left: 10px;">
                     <li><a href="connexionPage.html"><ion-icon name="log-out"></ion-icon> Log out</a></li>
@@ -43,6 +43,10 @@
                 <?php if (isset($_GET['action']) && $_GET['action'] == 'transportation'): ?>
                     <div class="col-sm-9"> 
                         <?php include("Transport.html"); ?>
+                    </div>
+                <?php elseif (isset($_GET['action']) && $_GET['action'] == 'settings'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("Settings.html"); ?>
                     </div>
                 <?php else: ?>
                     <div class="col-sm-9 text-right"> 
