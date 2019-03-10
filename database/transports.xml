@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <transportations>
 	<transport>
 		<reference>transport 1</reference>
@@ -8,8 +7,8 @@
 		<adresse>adresse 1</adresse>
 		<charge>1T</charge>
 		<prix>999.99</prix>
-		<reserve>false</reserve>
-		<expire></expire>
+		<reserve>true</reserve>
+		<expire>10-04-2019</expire>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>
@@ -19,7 +18,7 @@
 		<charge>2T</charge>
 		<prix>999.99</prix>
 		<reserve>false</reserve>
-		<expire></expire>
+		<expire/>
 	</transport>
 	<transport>
 		<reference>transport 3</reference>
@@ -29,6 +28,6 @@
 		<charge>3T</charge>
 		<prix>999.99</prix>
 		<reserve>false</reserve>
-		<expire></expire>
+		<expire/>
 	</transport>
 </transportations>

@@ -60,19 +60,33 @@ const fillTable = (transports, ligne) => {
 }
 
 const updateUserBudget = (xml, newBudget) => {
+	xml = new XMLHttpRequest();
     xml.open('POST', 'api/userInfoUpdateService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    let responce = undefined;
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
         	message.style.display = 'block';
-			message.innerHTML = "Well reserved";	
+			message.innerHTML = "Well reserved";
 		}
     }
 
     xml.send("newBudget="+newBudget+"&action=reservation");
 };
+
+const updateTransportInfo = (xml, transport) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/transportInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+	xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+        	console.log(xml.responseText);
+		}
+    }
+	
+    xml.send("transport="+transport+"&action=reservation");
+}
 
 // Main :
 let transports = extractTransportsFromXml(xml);
@@ -100,7 +114,7 @@ reserveButton.addEventListener('click', (event) => {
 
 	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
 		updateUserBudget(xml, (parseFloat(extractUserBudgetFromXml(xml)) - price));
-		updateTransportInfo(xml, transportsSelection.value)
+		updateTransportInfo(xml, transportsSelection.value);
 	} else {
 		message.style.display = 'block';
 		message.innerHTML = "You don't have more budget to buy this transport";
