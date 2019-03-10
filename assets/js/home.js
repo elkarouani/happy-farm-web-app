@@ -1,10 +1,10 @@
 // caching DOM
-const greeting = document.getElementById('greeting');
+const greeting = (document.getElementById('greeting') != null) ? document.getElementById('greeting') : "";
 const xml = new XMLHttpRequest();
 
 // helpers :
 const getXmlData = (xml) => {
-    let xmlData = xml.responseText;
+    xmlData = xml.responseText;
     if (xmlData) {
         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
     }

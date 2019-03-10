@@ -5,7 +5,7 @@ const messageOutput = document.getElementById("message");
 const xml = new XMLHttpRequest();
 
 const getXmlData = (xml) => {
-    let xmlData = xml.responseText;
+    xmlData = xml.responseText;
     if (xmlData) {
         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
     }

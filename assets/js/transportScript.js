@@ -3,12 +3,12 @@ const transportsSelection = document.getElementById('transportsSelection');
 const transportTable = document.getElementById('transportTable');
 const message = document.getElementById('message');
 const reserveButton = document.getElementById('reserveButton');
-const xml = new XMLHttpRequest();
+xml = new XMLHttpRequest();
 let price = 0;
 
 // helpers :
-const getXmlData = (xml) => {
-    let xmlData = xml.responseText;
+getXmlData = (xml) => {
+    xmlData = xml.responseText;
     if (xmlData) {
         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
     }
@@ -82,6 +82,10 @@ transportsSelection.addEventListener('change', (event) => {
 });
 
 reserveButton.addEventListener('click', (event) => {
+
+	console.log(parseFloat(extractUserBudgetFromXml(xml)));
+	console.log(price);
+	
 	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
 		message.style.display = 'block';
 		message.innerHTML = "Well reserved !!!";
