@@ -29,14 +29,13 @@
                 <div class="col-sm-2 sidenav">
                     <div class="btn-group-vertical  btn-group btn-group-lg">
                         <a class="btn btn-info" href="acceuil.php?action=transportation">Réservation des transports</a>
-                        <button type="button" class="btn btn-info">Samsung</button>
-                        <button type="button" class="btn btn-info">Sony</button>
-                        <button type="button" class="btn btn-info">Apple</button>
-                        <button type="button" class="btn btn-info">Samsung</button>
-                        <button type="button" class="btn btn-info">Sony</button>
-                        <button type="button" class="btn btn-info">Apple</button>
-                        <button type="button" class="btn btn-info">Samsung</button>
-                        <button type="button" class="btn btn-info">Sony</button>
+                        <a class="btn btn-info" href="acceuil.php?action=achat">Achat des voaux</a>
+                        <a class="btn btn-info" href="#">Quarantaine</a>
+                        <a class="btn btn-info" href="#">Voaux Disponibles</a>
+                        <a class="btn btn-info" href="#">Consultation de santé</a>
+                        <a class="btn btn-info" href="#">Prestation</a>
+                        <a class="btn btn-info" href="#">Stock</a>
+                        <a class="btn btn-info" href="#">Vente des voaux</a>
                     </div>
                 </div>
                 
@@ -47,6 +46,10 @@
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'settings'): ?>
                     <div class="col-sm-9"> 
                         <?php include("Settings.html"); ?>
+                    </div>
+                <?php elseif (isset($_GET['action']) && $_GET['action'] == 'achat'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("Achat.html"); ?>
                     </div>
                 <?php else: ?>
                     <div class="col-sm-9 text-right"> 
