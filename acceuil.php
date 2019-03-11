@@ -35,7 +35,7 @@
                         <a class="btn btn-info" href="#">Consultation de santé</a>
                         <a class="btn btn-info" href="#">Prestation</a>
                         <a class="btn btn-info" href="#">Stock</a>
-                        <a class="btn btn-info" href="#">Vente des voaux</a>
+                        <a class="btn btn-info" href="acceuil.php?action=vente">Vente des voaux</a>
                     </div>
                 </div>
                 
@@ -50,6 +50,10 @@
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'achat'): ?>
                     <div class="col-sm-9"> 
                         <?php include("Achat.html"); ?>
+                    </div>
+                <?php elseif (isset($_GET['action']) && $_GET['action'] == 'vente'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("Vente.html"); ?>
                     </div>
                 <?php else: ?>
                     <div class="col-sm-9 text-right"> 
