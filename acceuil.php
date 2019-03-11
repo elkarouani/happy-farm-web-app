@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     </head> 
-    <body>
+    <body style="background-image: url('assets/img/pic1.jpg'); background-size: cover;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="acceuil.php">
                 <img src="assets/img/logo.png" width="140" height="40" class="d-inline-block align-top" alt="">
