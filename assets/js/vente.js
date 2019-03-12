@@ -14,13 +14,39 @@ getXmlData = (xml) => {
     return xmlData;
 };
 
-// const extractVealGroupsFromXml = (xml) => {
-// 	xml.open('GET', 'database/vealsGroups.xml', false);
-// 	xml.send();
-//     return getXmlData(xml).getElementsByTagName("group");
-// }
+const extractVealsFromXml = (xml) => {
+	xml.open('GET', 'database/farm.xml', false);
+	xml.send();
+    return getXmlData(xml).getElementsByTagName("veal");
+}
+
+const fillWithVealGroups = (veals) => {
+	
+	for (let i = 0; i < veals.length; i++) {
+		let newLine = document.createElement("tr");
+		let refCell = document.createElement("td");
+		let originCell = document.createElement("td");
+		let weightCell = document.createElement("td");
+		let ageCell = document.createElement("td");
+		let priceCell = document.createElement("td");
+		let choicePointerCell = document.createElement("td");
+		
+		console.log(veals[i].childNodes[4].firstChild.data)
+
+		refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
+		originCell.innerHTML = veals[i].childNodes[2].firstChild.data;
+		weightCell.innerHTML = veals[i].childNodes[3].firstChild.data;
+		ageCell.innerHTML = veals[i].childNodes[4].firstChild.data;
+		priceCell.innerHTML = veals[i].childNodes[5].firstChild.data;
+		choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
+
+		newLine.append(refCell, originCell, weightCell, ageCell, priceCell, choicePointerCell);
+		vealGroupsTable.appendChild(newLine);
+	}
+}
 
 // main : 
+fillWithVealGroups(extractVealsFromXml(xml));
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {
