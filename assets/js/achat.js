@@ -1,4 +1,5 @@
 // caching DOM
+let filterInput = document.getElementById("myInput");
 let vealGroupsTable = document.getElementById("myTable");
 xml = new XMLHttpRequest();
 
@@ -33,7 +34,7 @@ const fillWithVealGroups = (groups) => {
 		weightCell.innerHTML = groups[i].childNodes[5].firstChild.data;
 		ageCell.innerHTML = groups[i].childNodes[7].firstChild.data;
 		priceCell.innerHTML = groups[i].childNodes[9].firstChild.data;
-		quantityCell.innerHTML = "<input class='form-control' type='number' style='width: 3rem; padding: 0.3rem .5rem;' value='1' max='"+groups[i].childNodes[11].firstChild.data+"'>";
+		quantityCell.innerHTML = "<input class='form-control' type='number' style='width: 3rem; padding: 0.3rem .5rem;' value='1' min='1' max='"+groups[i].childNodes[11].firstChild.data+"'>";
 		quantityCell.classList.add('d-flex', 'justify-content-center');
 		choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
 
@@ -44,6 +45,17 @@ const fillWithVealGroups = (groups) => {
 
 // main : 
 fillWithVealGroups(extractVealGroupsFromXml(xml));
-// fillWithOrigins();
 
 // events : 
+filterInput.addEventListener('keyup', (event) => {
+	let value = filterInput.value.toUpperCase();
+	let lines = vealGroupsTable.getElementsByTagName("tr");
+	for (let i = 0 ; i < lines.length ; i++){
+		origin = lines[i].getElementsByTagName('td')[1].firstChild.data;
+		if (origin.toUpperCase().indexOf(value) > -1) {
+	        lines[i].style.display = "";
+	    } else {
+	        lines[i].style.display = "none";
+	    }
+	}
+})
