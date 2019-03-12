@@ -47,6 +47,7 @@ const fillWithVealGroups = (groups) => {
 }
 
 const insertVeal = (xml, data) => {
+	xml = new XMLHttpRequest();
 	xml.open('POST', 'api/vealInfoUpdateService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     

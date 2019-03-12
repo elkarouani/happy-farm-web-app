@@ -4,13 +4,14 @@
 	function insertVeals($data){
 		$xml = new DomDocument("1.0", "UTF-8");
 		$xml->load('../database/farm.xml');
+		$xml->recover = true;
 
 		for ($i = 0; $i < (int)$data["quantity"]; $i++) {
 			
 			$rootTag = $xml->getElementsByTagName("farm")->item(0);
 			$vealTag = $xml->createElement("veal");
 
-			$code = strtoupper($data["origin"]).getAvailableIndex($rootTag);
+			$code = strtoupper($data["origin"]).getAvailableIndex(strtoupper($data["origin"]), $rootTag);
 			$refTag = $xml->createElement("reference", $code);
 			$marketTag = $xml->createElement("market", $data["market"]);
 			$origin = $xml->createElement("origin", $data["origin"]);
@@ -25,8 +26,7 @@
 			$vealTag->appendChild($age);
 			$vealTag->appendChild($bougthBy);
 
-			$rootTag->appendChild($vealTag);
-		
+			$rootTag->appendChild($vealTag);		
 		}
 
 		if ($xml->save('../database/farm.xml') != false) {
@@ -34,13 +34,15 @@
 		}
 	}
 
-	function getAvailableIndex($rootTag) {
+	function getAvailableIndex($origin, $rootTag) {
 		$refList = $rootTag->getElementsByTagName("reference");
-		$index = 1;
+		$index = 0;
 		
 		foreach ($refList as $ref) {
 			$refString = $ref->firstChild->data;
-			if ($index < (int)$refString[strlen($refString) - 1]) {$index = (int)$refString[strlen($refString) - 1];}
+			if ($origin == substr($refString, 0, strlen($origin))) {
+				if ($index < (int)$refString[strlen($refString) - 1]) {$index = (int)$refString[strlen($refString) - 1];}
+			}
 		}
 
 		return ++$index;
