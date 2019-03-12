@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <groups>
 	<group>
 		<market>Souk bab lkhmiss</market>
@@ -7,7 +6,7 @@
 		<poid>50</poid>
 		<age>20</age>
 		<prix>2000</prix>
-		<max>5</max>
+		<max>2</max>
 	</group>
 	<group>
 		<market>larb3et wlad Omran</market>

@@ -61,6 +61,20 @@ const insertVeal = (xml, data) => {
     xml.send("market="+data[0]+"&origin="+data[1]+"&weight="+data[2]+"&age="+data[3]+"&price="+data[4]+"&quantity="+data[5]+"&action=insert");
 }
 
+const updateGroupInfo = (xml, origin, quantity) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/groupsInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("origin="+origin+"&quantity="+quantity+"&action=afterBuying");
+}
+
 // main : 
 fillWithVealGroups(extractVealGroupsFromXml(xml));
 
@@ -91,6 +105,7 @@ addVealButton.addEventListener('click', (event) => {
 			let quantity = lines[i].childNodes[5].firstChild.value;
 			
 			insertVeal(xml, new Array(market, origin, weight, age, price, quantity));
+			updateGroupInfo(xml, origin, quantity);
 		}
 	}
 		
