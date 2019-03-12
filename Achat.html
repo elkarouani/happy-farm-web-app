@@ -1,4 +1,9 @@
 <div class="container" style="margin: 10px 0 0 100px; background-color: white;">
+	<div class="row" style="margin: 40px 0 0 20px;">
+		<div class="col">
+			<div id="message" class="alert alert-success text-center" role="alert" style="display:none;"></div>
+		</div>
+	</div>
 	<div class="text-center"> 
 		<input class="form-control" id="myInput" type="text" placeholder="Search..">
 
@@ -16,19 +21,8 @@
 			</thead>
 			<tbody id="myTable"></tbody>
 		</table>
-		<button type="button" class="btn btn-success">Valider</button><br><br>
+		<button id="addVeal" type="button" class="btn btn-success">Valider</button><br><br>
 	</div>            
 </div>
 
-<!-- <script>
-	$(document).ready(function(){
-		$("#myInput").on("keyup", function() {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function() {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
-</script>
- -->
- <script src="assets/js/achat.js"></script>
+<script src="assets/js/achat.js"></script>
