@@ -21,4 +21,4 @@ const extractUserNameFromXml = (xml) => {
 }
 
 // main : 
-greeting.innerHTML = "Welcome Back : <ion-icon name='person' style='margin-left: 10px;'></ion-icon> " + extractUserNameFromXml(xml);
+greeting.innerHTML = "Bienvenue : <ion-icon name='person' style='margin-left: 10px;'></ion-icon> " + extractUserNameFromXml(xml);
