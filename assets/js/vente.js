@@ -59,6 +59,22 @@ const removeVeal = (xml, reference) => {
     xml.send("reference="+reference+"&action=delete");
 }
 
+const updateUserInfo = (xml, price) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/userInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            // message.style.display = 'block';
+            // message.innerHTML = xml.responseText;
+            console.log(xml.responseText);
+        }
+    }
+	
+    xml.send("price="+price+"&action=updateBudget");
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 
@@ -85,7 +101,7 @@ removeVealButton.addEventListener('click', (event) => {
 			let price = lines[i].childNodes[4].firstChild.data;
 			
 			removeVeal(xml, reference);
-			// updateGroupInfo(xml, price);
+			updateUserInfo(xml, price);
 		}
 	}
 		

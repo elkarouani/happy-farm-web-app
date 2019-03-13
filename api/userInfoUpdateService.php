@@ -18,4 +18,15 @@
 
 		$result = file_put_contents('../database/users.xml', $user->saveXML());
 	}
+
+	if (isset($_POST['action']) && $_POST['action'] == "updateBudget") {
+		$user = simplexml_load_file('../database/users.xml');
+		$user->budget += (int)$_POST['price'];
+
+		$result = file_put_contents('../database/users.xml', $user->saveXML());
+		if ($result != false) {
+			echo 'le budget est bien modifié';
+		}
+	}
+	
 ?>
