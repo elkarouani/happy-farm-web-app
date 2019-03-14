@@ -7,7 +7,7 @@ xml = new XMLHttpRequest();
 
 // methods : 
 getXmlData = (xml) => {
-    xmlData = xml.responseText;
+    let xmlData = xml.responseText;
     if (xmlData) {
         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
     }
@@ -49,46 +49,66 @@ const fillWithVealGroups = (groups) => {
 }
 
 const insertVeal = (xml, data) => {
-	xml = new XMLHttpRequest();
-	xml.open('POST', 'api/vealInfoUpdateService.php', true);
-    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
-    xml.onreadystatechange = () => {
-        if (xml.readyState == 4 && xml.status == 200) {
-            message.style.display = 'block';
-            message.innerHTML = xml.responseText;
-        }
-    }
-	
-    xml.send("market="+data[0]+"&origin="+data[1]+"&weight="+data[2]+"&age="+data[3]+"&price="+data[4]+"&quantity="+data[5]+"&action=insert");
+	for(let i = 0 ; i < data.length ; i++){
+		xml = new XMLHttpRequest();
+		xml.open('POST', 'api/vealInfoUpdateService.php', true);
+	    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	    
+	    xml.onreadystatechange = () => {
+	        if (xml.readyState == 4 && xml.status == 200) {
+	            message.style.display = 'block';
+	            message.innerHTML = xml.responseText;
+	        }
+	    }
+		
+	    xml.send("market="+data[i][0]+"&origin="+data[i][1]+"&weight="+data[i][2]+"&age="+data[i][3]+"&price="+data[i][4]+"&quantity="+data[i][5]+"&action=insert");
+	}
 }
 
-const updateGroupInfo = (xml, origin, quantity) => {
-	xml = new XMLHttpRequest();
-	xml.open('POST', 'api/groupsInfoUpdateService.php', true);
-    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	
-	xml.onreadystatechange = () => {
-        if (xml.readyState == 4 && xml.status == 200) {
-            console.log(xml.responseText);
-        }
-    }
-
-    xml.send("origin="+origin+"&quantity="+quantity+"&action=afterBuying");
+const updateGroupInfo = (xml, data) => {
+	for(let i = 0 ; i < data.length ; i++){
+		xml = new XMLHttpRequest();
+		xml.open('POST', 'api/groupsInfoUpdateService.php', true);
+	    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		xml.onreadystatechange = () => {
+	        if (xml.readyState == 4 && xml.status == 200) {
+	            console.log(xml.responseText);
+	        }
+	    }
+		
+	    xml.send("origin="+data[i][0]+"&quantity="+data[i][1]+"&action=afterBuying");
+	}
 }
 
-const updateUserBudget = (xml, price, quantity) => {
-	xml = new XMLHttpRequest();
-	xml.open('POST', 'api/userInfoUpdateService.php', true);
-    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	
-	xml.onreadystatechange = () => {
-        if (xml.readyState == 4 && xml.status == 200) {
-            console.log(xml.responseText);
-        }
-    }
+const updateUserBudget = (xml, data) => {
+	for(let i = 0 ; i < data.length ; i++){
+		xml = new XMLHttpRequest();
+		xml.open('POST', 'api/userInfoUpdateService.php', true);
+	    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		xml.onreadystatechange = () => {
+	        if (xml.readyState == 4 && xml.status == 200) {
+	            console.log(xml.responseText);
+	        }
+	    }
 
-    xml.send("price="+price+"&quantity="+quantity+"&action=afterBuying");
+	    xml.send("price="+data[i][0]+"&quantity="+data[i][1]+"&action=afterBuying");
+	}
+}
+
+const getAvailableCharge = (xml) => {
+	return new Promise((resolve, reject) => {
+		xml = new XMLHttpRequest();
+		xml.open('POST', 'api/transportInfoUpdateService.php', true);
+	    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xml.onreadystatechange = () => {
+	        if (xml.readyState == 4 && xml.status == 200) {
+	            resolve(xml.responseText);
+	        }
+	    }
+	    xml.send("action=afterBuying");
+	});
 }
 
 // main : 
@@ -108,8 +128,26 @@ filterInput.addEventListener('keyup', (event) => {
 	}
 })
 
+async function purchaseOperations(xml, totalWeight, vealsToInsert, originsToUpdate, priceToGive) {
+	let availableCharge = await getAvailableCharge(xml);
+	if (availableCharge >= totalWeight) {
+		insertVeal(xml, vealsToInsert);
+		updateGroupInfo(xml, originsToUpdate);
+		updateUserBudget(xml, priceToGive);
+	}
+	else {
+		message.style.display = 'block';
+	    message.innerHTML = "Transportaion insuffisant";
+	}
+}
+
 addVealButton.addEventListener('click', (event) => {
 	let lines = vealGroupsTable.getElementsByTagName("tr");
+	let vealsToInsert = [];
+	let originsToUpdate = [];
+	let priceToGive = [];
+	let totalWeight = 0;
+	let reservedCharge = 0;
 	for(let i = 0 ; i < lines.length ; i++){
 		let choiceSelector = lines[i].lastChild.firstChild;
 		if (choiceSelector.checked) {
@@ -120,11 +158,13 @@ addVealButton.addEventListener('click', (event) => {
 			let price = lines[i].childNodes[4].firstChild.data;
 			let quantity = lines[i].childNodes[5].firstChild.value;
 			
-			insertVeal(xml, new Array(market, origin, weight, age, price, quantity));
-			updateGroupInfo(xml, origin, quantity);
-			updateUserBudget(xml, price, quantity);
+			totalWeight +=  parseInt(weight) * parseInt(quantity);
+			vealsToInsert[i] = new Array(market, origin, weight, age, price, quantity);
+			originsToUpdate[i] = new Array(origin, quantity);
+			priceToGive[i] = new Array(price, quantity);
 		}
 	}
-		
+	purchaseOperations(xml, totalWeight, vealsToInsert, originsToUpdate, priceToGive);
+	
 })
 

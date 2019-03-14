@@ -1,6 +1,6 @@
 // caching DOM
 const greeting = (document.getElementById('greeting') != null) ? document.getElementById('greeting') : "";
-const xml = new XMLHttpRequest();
+let xml = new XMLHttpRequest();
 
 // helpers :
 const getXmlData = (xml) => {
@@ -12,6 +12,7 @@ const getXmlData = (xml) => {
 }
 
 const extractUserNameFromXml = (xml) => {
+	xml = new XMLHttpRequest();
     xml.open('GET', 'database/users.xml', false);
     xml.send();
     

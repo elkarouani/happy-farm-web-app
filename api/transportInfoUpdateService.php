@@ -14,4 +14,16 @@
 		}
 		file_put_contents('../database/transports.xml', $transports->saveXML());
 	}
+
+	if (isset($_POST['action']) && $_POST['action'] == "afterBuying") {
+		$transports = simplexml_load_file('../database/transports.xml');
+		$total = 0;
+		foreach ($transports as $transport) {
+			if ($transport->reserve == "true") {
+				$total += (int)$transport->charge;
+			}
+		}
+		echo $total;
+	}
+
 ?>
