@@ -137,7 +137,7 @@ async function purchaseOperations(xml, totalWeight, vealsToInsert, originsToUpda
 	}
 	else {
 		message.style.display = 'block';
-	    message.innerHTML = "Transportaion insuffisant";
+	    message.innerHTML = "Transportation insuffisant";
 	}
 }
 

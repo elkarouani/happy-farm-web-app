@@ -2,7 +2,7 @@
 let filterInput = document.getElementById("myInput");
 let vealGroupsTable = document.getElementById("myTable");
 let removeVealButton = document.getElementById("removeVeal");
-// message = document.getElementById('message');
+message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
 // methods : 
@@ -91,6 +91,20 @@ const sendMessage = () => {
     xml.send("action=sendResults");
 }
 
+const generateRandom = (length, packet) => {
+	let pickUp = Math.floor((Math.random() * length) + 1);
+	let accepted = [];
+	let notAccepted = [];
+	for (let i = 0 ; i < pickUp ; i++) {
+		accepted[i] = packet[i];
+	}
+	for (let i = 0 ; i < (length - pickUp) ; i++) {
+		notAccepted[i] = packet[pickUp + i];
+	}
+
+	return new Array(accepted, notAccepted);
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 
@@ -110,16 +124,21 @@ filterInput.addEventListener('keyup', (event) => {
 
 removeVealButton.addEventListener('click', (event) => {
 	let lines = vealGroupsTable.getElementsByTagName("tr");
+	let packet = [];
 	for(let i = 0 ; i < lines.length ; i++){
 		let choiceSelector = lines[i].lastChild.firstChild;
 		if (choiceSelector.checked) {
-			let reference = lines[i].childNodes[0].firstChild.data;
-			let price = lines[i].childNodes[4].firstChild.data;
-			
-			removeVeal(xml, reference);
-			updateUserInfo(xml, price);
-			// sendMessage();
+			packet[i] = new Array(lines[i].childNodes[0].firstChild.data, lines[i].childNodes[4].firstChild.data) ;
 		}
 	}
+	
+	let data = generateRandom(packet.length, packet);
+	for (let i = 0 ; i < data[0].length ; i++) {
+		let reference = data[0][i][0];
+		let price = data[0][i][1];
 		
+		removeVeal(xml, reference);
+		updateUserInfo(xml, price);
+		// sendMessage();
+	}
 })
