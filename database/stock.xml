@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<stock>
+	<nourriture>
+		<prix>100</prix>
+		<quantite></quantite>
+	</nourriture>
+	<medicaments>
+		<medicament>
+			<titre>titre1</titre>
+			<prix>200</prix>
+			<quantite></quantite>
+		</medicament>
+		<medicament>
+			<titre>titre1</titre>
+			<prix>250</prix>
+			<quantite></quantite>
+		</medicament>
+	</medicament>
+</stock>
