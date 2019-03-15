@@ -82,9 +82,8 @@ const sendMessage = (totalPrice, origins) => {
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
-            // message.style.display = 'block';
-            // message.innerHTML = xml.responseText;
-            console.log(xml.responseText);
+            message.style.display = 'block';
+            message.innerHTML = "L'opération de vente est términer avec succées";
         }
     }
 	
@@ -105,6 +104,20 @@ const generateRandom = (length, packet) => {
 	return new Array(accepted, notAccepted);
 }
 
+const getAvailableCharge = (xml) => {
+	return new Promise((resolve, reject) => {
+		xml = new XMLHttpRequest();
+		xml.open('POST', 'api/transportInfoUpdateService.php', true);
+	    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xml.onreadystatechange = () => {
+	        if (xml.readyState == 4 && xml.status == 200) {
+	            resolve(xml.responseText);
+	        }
+	    }
+	    xml.send("action=afterBuying");
+	});
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 
@@ -122,39 +135,54 @@ filterInput.addEventListener('keyup', (event) => {
 	}
 })
 
+async function sellingOperations(xml, totalWeight, packet) {
+	let availableCharge = await getAvailableCharge(xml);
+	if (availableCharge >= totalWeight) {
+		let totalPrice = 0;
+		let data = generateRandom(packet.length, packet);
+		let origins = [];
+		for (let i = 0 ; i < data[0].length ; i++) {
+			if (data[0][i] != undefined) {
+				let reference = data[0][i][0];
+				let price = parseInt(data[0][i][1]);
+				let origin = data[0][i][2];
+				let found = false;
+				for (let j = 0 ; j < origins.length ; j++){
+					if (Array.isArray(origins[j])) {
+						if(origins[j][0] == origin) {
+							origins[j][1] += 1;
+							found = true;
+						}
+					}
+				}
+				if (!found) {origins[origins.length] = new Array(origin, 1);}
+
+				totalPrice += price;
+				removeVeal(xml, reference);
+				updateUserInfo(xml, price);
+			}
+		}
+		
+		if (origins != []) {sendMessage(totalPrice, origins);}
+	}
+	else {
+		message.style.display = 'block';
+	    message.innerHTML = "Transportation insuffisant";
+	}
+}
+
 removeVealButton.addEventListener('click', (event) => {
 	let lines = vealGroupsTable.getElementsByTagName("tr");
 	let packet = [];
-	let totalPrice = 0;
+	
+	let charge = 0;
 	for(let i = 0 ; i < lines.length ; i++){
 		let choiceSelector = lines[i].lastChild.firstChild;
 		if (choiceSelector.checked) {
 			packet[i] = new Array(lines[i].childNodes[0].firstChild.data, lines[i].childNodes[4].firstChild.data, lines[i].childNodes[1].firstChild.data) ;
+			charge += parseInt(lines[i].childNodes[2].firstChild.data);
 		}
 	}
-	
-	let data = generateRandom(packet.length, packet);
-	let origins = [];
-	for (let i = 0 ; i < data[0].length ; i++) {
-		if (data[0][i] != undefined) {
-			let reference = data[0][i][0];
-			let price = parseInt(data[0][i][1]);
-			let origin = data[0][i][2];
-			let found = false;
-			for (let j = 0 ; j < origins.length ; j++){
-				if (Array.isArray(origins[j])) {
-					if(origins[j][0] == origin) {
-						origins[j][1] += 1;
-						found = true;
-					}
-				}
-			}
-			if (!found) {origins[origins.length] = new Array(origin, 1);}
 
-			totalPrice += price;
-			// removeVeal(xml, reference);
-			// updateUserInfo(xml, price);
-		}
-	}
-	if (origins != []) {sendMessage(totalPrice, origins);}
+	sellingOperations(xml, charge, packet);
 })
