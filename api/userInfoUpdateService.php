@@ -39,4 +39,14 @@
 		}
 	}
 
+	if (isset($_POST['action']) && $_POST['action'] == "decreaseBudget") {
+		$user = simplexml_load_file('../database/users.xml');
+		$user->budget -= (int)$_POST['total'];
+
+		$result = file_put_contents('../database/users.xml', $user->saveXML());
+		if ($result != false) {
+			echo 'le budget est bien modifié';
+		}
+	}
+
 ?>
