@@ -75,7 +75,7 @@ const updateUserInfo = (xml, price) => {
     xml.send("price="+price+"&action=updateBudget");
 }
 
-const sendMessage = () => {
+const sendMessage = (totalPrice, origins) => {
 	// xml = new XMLHttpRequest();
 	xml.open('POST', 'api/messagesService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -88,7 +88,7 @@ const sendMessage = () => {
         }
     }
 	
-    xml.send("action=sendResults");
+    xml.send("origins="+origins+"&totalPrice="+totalPrice+"&action=sendResults");
 }
 
 const generateRandom = (length, packet) => {
@@ -125,20 +125,36 @@ filterInput.addEventListener('keyup', (event) => {
 removeVealButton.addEventListener('click', (event) => {
 	let lines = vealGroupsTable.getElementsByTagName("tr");
 	let packet = [];
+	let totalPrice = 0;
 	for(let i = 0 ; i < lines.length ; i++){
 		let choiceSelector = lines[i].lastChild.firstChild;
 		if (choiceSelector.checked) {
-			packet[i] = new Array(lines[i].childNodes[0].firstChild.data, lines[i].childNodes[4].firstChild.data) ;
+			packet[i] = new Array(lines[i].childNodes[0].firstChild.data, lines[i].childNodes[4].firstChild.data, lines[i].childNodes[1].firstChild.data) ;
 		}
 	}
 	
 	let data = generateRandom(packet.length, packet);
+	let origins = [];
 	for (let i = 0 ; i < data[0].length ; i++) {
-		let reference = data[0][i][0];
-		let price = data[0][i][1];
-		
-		removeVeal(xml, reference);
-		updateUserInfo(xml, price);
-		// sendMessage();
+		if (data[0][i] != undefined) {
+			let reference = data[0][i][0];
+			let price = parseInt(data[0][i][1]);
+			let origin = data[0][i][2];
+			let found = false;
+			for (let j = 0 ; j < origins.length ; j++){
+				if (Array.isArray(origins[j])) {
+					if(origins[j][0] == origin) {
+						origins[j][1] += 1;
+						found = true;
+					}
+				}
+			}
+			if (!found) {origins[origins.length] = new Array(origin, 1);}
+
+			totalPrice += price;
+			// removeVeal(xml, reference);
+			// updateUserInfo(xml, price);
+		}
 	}
+	if (origins != []) {sendMessage(totalPrice, origins);}
 })
