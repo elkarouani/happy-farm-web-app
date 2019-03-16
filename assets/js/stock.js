@@ -56,6 +56,20 @@ const extractMedicinePriceByTitle = (xml, title) => {
     return medicaments;
 }
 
+const getAvailableCharge = (xml) => {
+    return new Promise((resolve, reject) => {
+        xml = new XMLHttpRequest();
+        xml.open('POST', 'api/transportInfoUpdateService.php', true);
+        xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xml.onreadystatechange = () => {
+            if (xml.readyState == 4 && xml.status == 200) {
+                resolve(xml.responseText);
+            }
+        }
+        xml.send("action=afterBuying");
+    });
+}
+
 const addFoodQuantity = (xml, quantity) => {
     xml = new XMLHttpRequest();
     xml.open('POST', 'api/stockInfoUpdateService.php', true);
@@ -117,6 +131,28 @@ const fillWithMedicences = () => {
     }
 };
 
+async function foodPurchaseOperations () {
+    let availableCharge = await getAvailableCharge(xml);
+    if (availableCharge >= foodQuantityInput.value) {
+        addFoodQuantity(xml, foodQuantityInput.value);
+        decreaseUserBudget(xml, foodTotal.innerHTML.substring(('Total : ').length - 1));    
+    } else {
+        message.style.display = 'block';
+        message.innerHTML = "transportation insuffisante";
+    }
+};
+
+async function medicencePurchaseOperations (medicenceTitle, medicenceQuantity, price) {
+    let availableCharge = await getAvailableCharge(xml);
+    if (availableCharge >= medicenceQuantity) {
+        addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
+        decreaseUserBudget(xml, price);    
+    } else {
+        message.style.display = 'block';
+        message.innerHTML = "transportation insuffisante";
+    }
+}
+
 // main : 
 foodQuantity.innerHTML = "Quantité : "+extractFoodInfo(xml)[1]+" Kg";
 foodQuantityInput.value = 1;
@@ -129,12 +165,15 @@ foodQuantityInput.addEventListener('change', (event) => {
 });
 
 buyFood.addEventListener('click', (event) => {
-    addFoodQuantity(xml, foodQuantityInput.value);
-    decreaseUserBudget(xml, foodTotal.innerHTML.substring(('Total : ').length - 1));
+    foodPurchaseOperations();
 });
 
 medicencesSelection.addEventListener('change', () => {
-    medicencesTotal.innerHTML = "Total : " + extractMedicinePriceByTitle(xml, medicencesSelection.value);
+    medicencesTotal.innerHTML = "Total : " + extractMedicinePriceByTitle(xml, medicencesSelection.value) * medicenceQuantityInput.value;
+});
+
+medicenceQuantityInput.addEventListener('change', (event) => {
+    medicencesTotal.innerHTML = "Total : " + extractMedicinePriceByTitle(xml, medicencesSelection.value) * medicenceQuantityInput.value;
 });
 
 buyMedicence.addEventListener('click', (event) => {
@@ -142,5 +181,5 @@ buyMedicence.addEventListener('click', (event) => {
     let medicenceQuantity = medicenceQuantityInput.value;
     let price = medicencesTotal.innerHTML.substring(('Total : ').length - 1);
     
-    addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
+    medicencePurchaseOperations(medicenceTitle, medicenceQuantity, price);
 });

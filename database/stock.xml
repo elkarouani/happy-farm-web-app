@@ -13,7 +13,7 @@
 		<medicament>
 			<titre>titre2</titre>
 			<prix>250</prix>
-			<quantite>100</quantite>
+			<quantite>101</quantite>
 		</medicament>
 	</medicaments>
 </stock>
