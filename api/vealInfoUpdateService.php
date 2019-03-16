@@ -1,6 +1,7 @@
 <?php  
 	if (isset($_POST) && $_POST['action'] == 'insert') {insertVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'delete') {deleteVeals($_POST);}
+	if (isset($_POST) && $_POST['action'] == 'checkDesponibility') {checkDesponibility();}
 
 	function insertVeals($data){
 		$xml = new DomDocument("1.0", "UTF-8");
@@ -75,5 +76,22 @@
 		}
 
 		return ++$index;
+	}
+
+	function checkDesponibility() {
+		$farm = simplexml_load_file('../database/farm.xml');
+		foreach ($farm as $veal) {
+			$quarentaine = strtotime($veal->quarentaine);
+			$now = strtotime(date('Y-m-d'));
+			if ($quarentaine == $now) {
+				$veal->quarentaine = "";
+				$veal->disponible = "true";
+			}
+		}
+
+		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
+		if ($result != false) {
+			echo 'veals move to diponibilty';
+		}
 	}
 ?>
