@@ -91,7 +91,7 @@
 
 		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
 		if ($result != false) {
-			echo 'veals move to diponibilty';
+			echo 'moving veals to diponibilty';
 		}
 	}
 ?>

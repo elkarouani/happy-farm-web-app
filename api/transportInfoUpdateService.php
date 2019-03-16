@@ -26,4 +26,21 @@
 		echo $total;
 	}
 
+	if (isset($_POST['action']) && $_POST['action'] == "checkExpiration") {
+		$transports = simplexml_load_file('../database/transports.xml');
+		foreach ($transports as $transport) {
+			$expire = strtotime($transport->expire);
+			$now = strtotime(date('Y-m-d'));
+			if ($expire == $now) {
+				$transport->expire = "";
+				$transport->reserve = "false";
+			}
+		}
+
+		$result = file_put_contents('../database/transports.xml', $transports->saveXML());
+		if ($result != false) {
+			echo 'updating transports exparation';
+		}
+	}
+
 ?>
