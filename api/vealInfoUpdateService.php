@@ -12,6 +12,10 @@
 			$rootTag = $xml->getElementsByTagName("farm")->item(0);
 			$vealTag = $xml->createElement("veal");
 
+			$actuel_date = date('d-m-Y');
+			$date = strtotime(date("d-m-Y", strtotime($actuel_date)) . " + 40 days");
+			$expire = date('d-m-Y', $date);
+
 			$code = strtoupper($data["origin"]).getAvailableIndex(strtoupper($data["origin"]), $rootTag);
 			$refTag = $xml->createElement("reference", $code);
 			$marketTag = $xml->createElement("market", $data["market"]);
@@ -19,6 +23,8 @@
 			$weight = $xml->createElement("weight", $data["weight"]);
 			$age = $xml->createElement("age", $data["age"]);
 			$bougthBy = $xml->createElement("bougthBy", $data["price"]);
+			$quarentaine = $xml->createElement("quarentaine", $expire);
+			$disponible = $xml->createElement("disponible", "false");
 
 			$vealTag->appendChild($refTag);
 			$vealTag->appendChild($marketTag);
@@ -26,6 +32,8 @@
 			$vealTag->appendChild($weight);
 			$vealTag->appendChild($age);
 			$vealTag->appendChild($bougthBy);
+			$vealTag->appendChild($quarentaine);
+			$vealTag->appendChild($disponible);
 
 			$rootTag->appendChild($vealTag);		
 		}

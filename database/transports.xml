@@ -5,7 +5,7 @@
 		<title>title 1</title>
 		<telephone>phone 1</telephone>
 		<adresse>adresse 1</adresse>
-		<charge>1</charge>
+		<charge>1000</charge>
 		<prix>999.99</prix>
 		<reserve>true</reserve>
 		<expire>12-04-2019</expire>
