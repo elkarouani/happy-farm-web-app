@@ -7,6 +7,8 @@ let buyFood = document.getElementById('buyFood');
 let medicencesSelection = document.getElementById("medicencesSelection");
 let medicencesTable = document.getElementById("medicencesTable");
 let medicencesTotal = document.getElementById("medicencesTotal");
+let buyMedicence = document.getElementById("buyMedicence");
+let medicenceQuantityInput = document.getElementById("medicenceQuantityInput");
 message = document.getElementById('message');
 // helpers :
 getXmlData = (xml) => {
@@ -68,6 +70,20 @@ const addFoodQuantity = (xml, quantity) => {
     xml.send("quantity="+quantity+"&action=updateFoodQuantity");
 }
 
+const addMedicineQuantity = (xml, medicenceTitle, medicenceQuantity) => {
+    xml = new XMLHttpRequest();
+    xml.open('POST', 'api/stockInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("title="+medicenceTitle+"&quantity="+medicenceQuantity+"&action=updateMedicenceQuantity");
+}
+
 const decreaseUserBudget = (xml, total) => {
     xml = new XMLHttpRequest();
     xml.open('POST', 'api/userInfoUpdateService.php', true);
@@ -119,4 +135,12 @@ buyFood.addEventListener('click', (event) => {
 
 medicencesSelection.addEventListener('change', () => {
     medicencesTotal.innerHTML = "Total : " + extractMedicinePriceByTitle(xml, medicencesSelection.value);
+});
+
+buyMedicence.addEventListener('click', (event) => {
+    let medicenceTitle = medicencesSelection.value;
+    let medicenceQuantity = medicenceQuantityInput.value;
+    let price = medicencesTotal.innerHTML.substring(('Total : ').length - 1);
+    
+    addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
 });

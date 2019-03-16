@@ -8,12 +8,12 @@
 		<medicament>
 			<titre>titre1</titre>
 			<prix>200</prix>
-			<quantite>0</quantite>
+			<quantite>100</quantite>
 		</medicament>
 		<medicament>
 			<titre>titre2</titre>
 			<prix>250</prix>
-			<quantite>0</quantite>
+			<quantite>100</quantite>
 		</medicament>
 	</medicaments>
 </stock>

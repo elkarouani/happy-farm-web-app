@@ -17,8 +17,8 @@
 		<adresse>adresse 2</adresse>
 		<charge>20000</charge>
 		<prix>999.99</prix>
-		<reserve>false</reserve>
-		<expire/>
+		<reserve>true</reserve>
+		<expire>16-04-2019</expire>
 	</transport>
 	<transport>
 		<reference>transport 3</reference>

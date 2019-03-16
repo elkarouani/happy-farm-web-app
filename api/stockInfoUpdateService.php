@@ -10,4 +10,18 @@
 		}
 	}
 
+	if (isset($_POST['action']) && $_POST['action'] == 'updateMedicenceQuantity') {
+		$stock = simplexml_load_file('../database/stock.xml');
+		foreach ($stock->medicaments->medicament as $medicament) {
+			if ($medicament->titre == $_POST['title']) {
+				$medicament->quantite += (int)$_POST['quantity'];
+			};
+		};
+
+		$result = file_put_contents('../database/stock.xml', $stock->saveXML());
+		if ($result != false) {
+			echo 'la quantité est bien modifiée';
+		}
+	}
+
 ?>
