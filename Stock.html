@@ -26,14 +26,11 @@
 					<h4>Médicaments : </h4>
 				</div>
 				<div class="card-body">
-					<select class="form-control">
+					<select id="medicencesSelection" class="form-control">
 						<option value="" selected="selected"></option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
 					</select><br>
 					<input class="form-control" type="number"><br>
-					<p>Total : </p>
+					<p id="medicencesTotal">Total : </p>
 					<button class="btn btn-primary">Acheter</button>
 				</div>
 				<div class="card-header">
@@ -42,20 +39,7 @@
 							<th>Type</th>
 							<th>Quantité</th>
 						</thead>
-						<tbody>
-							<tr>
-								<td>type 1</td>
-								<td>200</td>
-							</tr>
-							<tr>
-								<td>type 2</td>
-								<td>230</td>
-							</tr>
-							<tr>
-								<td>type 3</td>
-								<td>270</td>
-							</tr>
-						</tbody>
+						<tbody id="medicencesTable"></tbody>
 					</table>
 				</div>
 			</div>
