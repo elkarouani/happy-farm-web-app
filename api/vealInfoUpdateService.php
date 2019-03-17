@@ -26,6 +26,7 @@
 			$bougthBy = $xml->createElement("bougthBy", $data["price"]);
 			$quarentaine = $xml->createElement("quarentaine", $expire);
 			$disponible = $xml->createElement("disponible", "false");
+			$consultation = $xml->createElement("consultation", "false");
 
 			$vealTag->appendChild($refTag);
 			$vealTag->appendChild($marketTag);
@@ -35,6 +36,7 @@
 			$vealTag->appendChild($bougthBy);
 			$vealTag->appendChild($quarentaine);
 			$vealTag->appendChild($disponible);
+			$vealTag->appendChild($consultation);
 
 			$rootTag->appendChild($vealTag);		
 		}
