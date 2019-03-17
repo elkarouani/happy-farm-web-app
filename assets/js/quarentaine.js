@@ -1,7 +1,8 @@
 // caching DOM
 let vealGroupsTable = document.getElementById("myTable");
 let filterInput = document.getElementById("myInput");
-// message = document.getElementById('message');
+let demandeServe = document.getElementById("demandeServe");
+message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
 // methods : 
@@ -22,7 +23,7 @@ const extractVealsFromXml = (xml) => {
 const fillWithVealGroups = (veals) => {
 	
 	for (let i = 0; i < veals.length; i++) {
-		if (veals[i].childNodes[7].firstChild.data == "false") {
+		if (veals[i].childNodes[7].firstChild.data == "false" && veals[i].childNodes[8].firstChild.data == "false") {
 			let newLine = document.createElement("tr");
 			let refCell = document.createElement("td");
 			let originCell = document.createElement("td");
@@ -44,6 +45,21 @@ const fillWithVealGroups = (veals) => {
 	}
 }
 
+const moveOutFromQuarentaine = (xml, reference) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/vealInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            message.style.display = 'block';
+            message.innerHTML = xml.responseText;
+        }
+    }
+
+    xml.send("reference="+reference+"&action=moveFromDisponobility");
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 
@@ -58,5 +74,16 @@ filterInput.addEventListener('keyup', (event) => {
 	    } else {
 	        lines[i].style.display = "none";
 	    }
+	}
+})
+
+demandeServe.addEventListener('click', (event) => {
+	let lines = vealGroupsTable.getElementsByTagName("tr");
+	for(let i = 0 ; i < lines.length ; i++){
+		let choiceSelector = lines[i].lastChild.firstChild;
+		if (choiceSelector.checked) {
+			let reference = lines[i].childNodes[0].firstChild.data;
+			moveOutFromQuarentaine(xml, reference);
+		}
 	}
 })

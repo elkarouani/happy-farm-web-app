@@ -2,6 +2,7 @@
 	if (isset($_POST) && $_POST['action'] == 'insert') {insertVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'delete') {deleteVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'checkDesponibility') {checkDesponibility();}
+	if (isset($_POST) && $_POST['action'] == 'moveFromDisponobility') {moveFromDisponobility($_POST['reference']);}
 
 	function insertVeals($data){
 		$xml = new DomDocument("1.0", "UTF-8");
@@ -94,6 +95,20 @@
 		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
 		if ($result != false) {
 			echo 'moving veals to diponibilty';
+		}
+	}
+
+	function moveFromDisponobility ($reference) {
+		$farm = simplexml_load_file('../database/farm.xml');
+		foreach ($farm as $veal) {
+			if($veal->reference == $reference) {
+				$veal->consultation = "true";
+			}
+		}
+
+		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
+		if ($result != false) {
+			echo 'Demande de consultation envoyée';
 		}
 	}
 ?>
