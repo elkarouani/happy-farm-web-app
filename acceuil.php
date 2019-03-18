@@ -32,7 +32,7 @@
                         <a class="btn btn-info" href="acceuil.php?action=achat">Achat des voaux</a>
                         <a class="btn btn-info" href="acceuil.php?action=quarentaine">Quarentaine</a>
                         <a class="btn btn-info" href="acceuil.php?action=disponibles">Voaux Disponibles</a>
-                        <a class="btn btn-info" href="#">Consultation de santé</a>
+                        <a class="btn btn-info" href="acceuil.php?action=consultation">Consultation de santé</a>
                         <a class="btn btn-info" href="#">Prestation</a>
                         <a class="btn btn-info" href="acceuil.php?action=stock">Stock</a>
                         <a class="btn btn-info" href="acceuil.php?action=vente">Vente des voaux</a>
@@ -58,6 +58,10 @@
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'disponibles'): ?>
                     <div class="col-sm-9"> 
                         <?php include("DisponibleVeals.html"); ?>
+                    </div>
+                <?php elseif (isset($_GET['action']) && $_GET['action'] == 'consultation'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("Consultation.html"); ?>
                     </div>
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'stock'): ?>
                     <div class="col-sm-9"> 
