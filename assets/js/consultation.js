@@ -31,8 +31,6 @@ const fillWithVealGroups = (veals) => {
 			let statusCell = document.createElement("td");
 			let medicenceCell = document.createElement("td");
 			let actionsCell = document.createElement("td");
-			// let priceCell = document.createElement("td");
-			// let choicePointerCell = document.createElement("td");
 			
 			refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
 			ageCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[4].firstChild.data + "' />";
@@ -41,10 +39,7 @@ const fillWithVealGroups = (veals) => {
 			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='sick'>Malade</option><option value='healthy'>Sain</option></select>";
 			medicenceCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector' multiple='multiple'></select>";
 			actionsCell.innerHTML = "<button class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
-			// priceCell.innerHTML = veals[i].childNodes[5].firstChild.data;
-			// choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
 
-			// newLine.append(refCell, originCell, weightCell, ageCell, priceCell, choicePointerCell);
 			newLine.append(refCell, ageCell, weightCell, doctorCell, statusCell, medicenceCell, actionsCell);
 			vealGroupsTable.appendChild(newLine);
 		}
