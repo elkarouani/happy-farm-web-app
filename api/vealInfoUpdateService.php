@@ -28,6 +28,7 @@
 			$quarentaine = $xml->createElement("quarentaine", $expire);
 			$disponible = $xml->createElement("disponible", "false");
 			$consultation = $xml->createElement("consultation", "false");
+			$status = $xml->createElement("status", "sain");
 
 			$vealTag->appendChild($refTag);
 			$vealTag->appendChild($marketTag);
@@ -38,6 +39,7 @@
 			$vealTag->appendChild($quarentaine);
 			$vealTag->appendChild($disponible);
 			$vealTag->appendChild($consultation);
+			$vealTag->appendChild($status);
 
 			$rootTag->appendChild($vealTag);		
 		}
@@ -87,8 +89,16 @@
 			$quarentaine = strtotime($veal->quarentaine);
 			$now = strtotime(date('Y-m-d'));
 			if ($quarentaine == $now) {
-				$veal->quarentaine = "";
-				$veal->disponible = "true";
+				if ($veal->status == "malade") {
+					$date = strtotime(date("d-m-Y", strtotime($veal->quarentaine)) . " + 1 days");
+					$expire = date('d-m-Y', $date);
+					$veal->quarentaine = $expire;
+				}
+
+				if($veal->status == "sain"){
+					$veal->quarentaine = "";
+					$veal->disponible = "true";
+				}
 			}
 		}
 
