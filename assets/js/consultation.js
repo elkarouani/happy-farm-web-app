@@ -2,6 +2,7 @@
 let vealGroupsTable = document.getElementById("myTable");
 let filterInput = document.getElementById("myInput");
 let doctorSelector = document.getElementsByName("doctor");
+let medicencesSelector = document.getElementsByName("medicence");
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
@@ -28,6 +29,13 @@ const extractDoctorsNames = (xml) => {
     return getXmlData(xml).getElementsByTagName("veterinaire");
 }
 
+const extractMedicencesNames = (xml) => {
+	xml = new XMLHttpRequest();
+	xml.open('GET', 'database/stock.xml', false);
+	xml.send();
+    return getXmlData(xml).getElementsByTagName("medicament");
+}
+
 const fillWithVealGroups = (veals) => {
 	
 	for (let i = 0; i < veals.length; i++) {
@@ -46,7 +54,7 @@ const fillWithVealGroups = (veals) => {
 			weightCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[3].firstChild.data + "' />";
 			doctorCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector'><option value='' selected='selected'></option></select>"
 			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='sick'>Malade</option><option value='healthy'>Sain</option></select>";
-			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='doctorSelector' multiple='multiple'></select>";
+			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='medicencesSelector' multiple='multiple'></select>";
 			actionsCell.innerHTML = "<button class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
 
 			newLine.append(refCell, ageCell, weightCell, doctorCell, statusCell, medicenceCell, actionsCell);
@@ -66,9 +74,21 @@ const fillWithDoctors = (doctors) => {
 	}
 }
 
+const fillsWithMedicences = (medicences) => {
+	for (let i = 0; i < medicencesSelector.length; i++) {
+		for (let j = 0; j < medicences.length; j++) {
+			let option = document.createElement("option");
+			option.value = medicences[j].childNodes[1].firstChild.data;
+			option.innerHTML = medicences[j].childNodes[1].firstChild.data;
+			medicencesSelector[i].appendChild(option);
+		}
+	}
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 fillWithDoctors(extractDoctorsNames(xml));
+fillsWithMedicences(extractMedicencesNames(xml));
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {
