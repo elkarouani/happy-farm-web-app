@@ -7,8 +7,8 @@
 		<adresse>adresse 1</adresse>
 		<charge>1000</charge>
 		<prix>500</prix>
-		<reserve>false</reserve>
-		<expire/>
+		<reserve>true</reserve>
+		<expire>04-05-2019</expire>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>

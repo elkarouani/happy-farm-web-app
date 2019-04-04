@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div class="text-center"> 
-		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+		<input class="form-control" id="myInput" type="text" placeholder="Chercher par origine ...">
 
 		<table class="table">
 			<thead>
@@ -16,12 +16,30 @@
 					<th>Age</th>
 					<th>Prix</th>
 					<th>Quantite</th>
-					<th>Acheter</th>
+					<th>Selectionner</th>
 				</tr>
 			</thead>
 			<tbody id="myTable"></tbody>
 		</table>
-		<button id="addVeal" type="button" class="btn btn-success">Valider</button><br><br>
+		<button type="button" class="btn btn-primary" style="padding: 10px 30px 10px 30px;" data-toggle="modal" data-target="#purachaseModal">
+		  <strong>Acheter</strong>
+		</button><br><br>
+
+		<div class="modal fade" id="purachaseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content text-center">
+		      <div class="modal-body">
+		        Voulez vous vraiment continuer cette opération ?
+		      </div>
+		      <div class="modal-footer d-flex justify-content-center">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+		        <button id="addVeal" type="button" class="btn btn-primary">Oui</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
 	</div>            
 </div>
 

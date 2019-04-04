@@ -38,7 +38,7 @@ const fillWithVealGroups = (groups) => {
 			weightCell.innerHTML = groups[i].childNodes[5].firstChild.data;
 			ageCell.innerHTML = groups[i].childNodes[7].firstChild.data;
 			priceCell.innerHTML = groups[i].childNodes[9].firstChild.data;
-			quantityCell.innerHTML = "<input class='form-control' type='number' style='width: 3rem; padding: 0.3rem .5rem;' value='1' min='1' max='"+groups[i].childNodes[11].firstChild.data+"'>";
+			quantityCell.innerHTML = "<input class='form-control' type='number' style='width: 4rem; padding: .3rem .5rem;' value='1' min='1' max='"+groups[i].childNodes[11].firstChild.data+"'>";
 			quantityCell.classList.add('d-flex', 'justify-content-center');
 			choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
 
@@ -134,10 +134,16 @@ async function purchaseOperations(xml, totalWeight, vealsToInsert, originsToUpda
 		insertVeal(xml, vealsToInsert);
 		updateGroupInfo(xml, originsToUpdate);
 		updateUserBudget(xml, priceToGive);
+		$("#purachaseModal").modal('hide');
+		
+		setTimeout(function(){
+		    location.reload(); 
+		}, 3000);
 	}
 	else {
 		message.style.display = 'block';
 	    message.innerHTML = "Transportation insuffisant";
+	    $("#purachaseModal").modal('hide');
 	}
 }
 
