@@ -2,7 +2,11 @@
 const transportsSelection = document.getElementById('transportsSelection');
 const transportTable = document.getElementById('transportTable');
 const message = document.getElementById('message');
+const reserveZone = document.getElementById("reserveZone");
 const reserveButton = document.getElementById('reserveButton');
+const commandZone = document.getElementById('commandZone');
+const tableTitle = document.getElementById("tableTitle");
+const reservationModalHandler = document.getElementById("reservationModalHandler");
 xml = new XMLHttpRequest();
 let price = 0;
 
@@ -31,6 +35,10 @@ const extractUserBudgetFromXml = (xml) => {
 }
 
 const fillSelectInput = (transports) => {
+    transportsSelection.innerHTML = "";
+    let item = document.createElement('option');
+    item.value = " ";
+  	transportsSelection.appendChild(item);
     for(var i = 0, length = transports.length ; i < length; i++){
     	let item = document.createElement('option');
     	if(transports[i].childNodes[13].firstChild.data == "false"){
@@ -96,6 +104,15 @@ fillSelectInput(transports);
 
 // Events :
 transportsSelection.addEventListener('change', (event) => {
+	if (transportsSelection.value == " ") {reservationModalHandler.setAttribute("disabled", "disabled");}
+	else{reservationModalHandler.removeAttribute("disabled");}
+
+	commandZone.setAttribute("class", "row justify-content-between");
+	transportTable.removeAttribute("hidden");
+	reserveZone.removeAttribute("hidden");
+	tableTitle.removeAttribute("hidden");
+	reservationModalHandler.removeAttribute("hidden");
+	message.style.display = "none";
 	for(var i = 0, length = transports.length ; i < length; i++){
     	let title = transports[i].childNodes[3].firstChild.data;
     	if (transportsSelection.value == title) {
@@ -113,12 +130,19 @@ transportsSelection.addEventListener('change', (event) => {
 });
 
 reserveButton.addEventListener('click', (event) => {
-
 	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
 		updateUserBudget(xml, (parseFloat(extractUserBudgetFromXml(xml)) - price));
 		updateTransportInfo(xml, transportsSelection.value);
+		$('#reservationModal').modal('hide');
+		tableTitle.setAttribute("hidden", "hidden");
+		transportTable.setAttribute("hidden", "hidden");
+		transportsSelection.childNodes[transportsSelection.selectedIndex].setAttribute("disabled", "disabled");
+		transportsSelection.selectedIndex = 0;
+		reservationModalHandler.setAttribute("disabled", "disabled");
 	} else {
 		message.style.display = 'block';
 		message.innerHTML = "You don't have more budget to buy this transport";
+		event.preventDefault();
+		$('#reservationModal').modal('hide');
 	}
 });

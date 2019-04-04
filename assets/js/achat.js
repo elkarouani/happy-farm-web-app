@@ -22,7 +22,7 @@ const extractVealGroupsFromXml = (xml) => {
 
 const fillWithVealGroups = (groups) => {
 	for (let i = 0; i < groups.length; i++) {
-		if (parseInt(groups[i].childNodes[11].firstChild.data) != 0) {
+		if (parseInt(groups[i].childNodes[11].firstChild.data) > 0) {
 			let newLine = document.createElement("tr");
 			let marketCell = document.createElement("td");
 			let originCell = document.createElement("td");

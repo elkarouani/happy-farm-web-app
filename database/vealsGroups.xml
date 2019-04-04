@@ -4,17 +4,17 @@
 		<market>Souk bab lkhmiss</market>
 		<origin>jdida</origin>
 		<poid>50</poid>
-		<age>20</age>
+		<age>10</age>
 		<prix>2000</prix>
-		<max>4</max>
+		<max>10</max>
 	</group>
 	<group>
 		<market>larb3et wlad Omran</market>
 		<origin>taza</origin>
 		<poid>40</poid>
-		<age>21</age>
+		<age>11</age>
 		<prix>4000</prix>
-		<max>6</max>
+		<max>10</max>
 	</group>
 	<group>
 		<market>tlat sidibenour</market>
@@ -22,7 +22,7 @@
 		<poid>10</poid>
 		<age>4</age>
 		<prix>20</prix>
-		<max>6</max>
+		<max>10</max>
 	</group>
 	<group>
 		<market>Souk baladi</market>
@@ -30,6 +30,6 @@
 		<poid>10</poid>
 		<age>8</age>
 		<prix>125</prix>
-		<max>8</max>
+		<max>10</max>
 	</group>
 </groups>

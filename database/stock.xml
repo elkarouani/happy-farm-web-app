@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <stock>
 	<nourriture>
-		<prix>100</prix>
-		<quantite>30</quantite>
+		<prix>10</prix>
+		<quantite>34</quantite>
 	</nourriture>
 	<medicaments>
 		<medicament>
 			<titre>titre1</titre>
 			<prix>200</prix>
-			<quantite>100</quantite>
+			<quantite>101</quantite>
 		</medicament>
 		<medicament>
 			<titre>titre2</titre>

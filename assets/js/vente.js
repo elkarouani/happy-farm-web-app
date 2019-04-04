@@ -76,6 +76,7 @@ const updateUserInfo = (xml, price) => {
 }
 
 const sendMessage = (totalPrice, origins) => {
+	console.log('great');
 	// xml = new XMLHttpRequest();
 	xml.open('POST', 'api/messagesService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -84,7 +85,10 @@ const sendMessage = (totalPrice, origins) => {
         if (xml.readyState == 4 && xml.status == 200) {
             message.style.display = 'block';
             message.innerHTML = "L'opération de vente est términer avec succées";
+        } else {
+        	console.log('there is an error');
         }
+
     }
 	
     xml.send("origins="+origins+"&totalPrice="+totalPrice+"&action=sendResults");
@@ -163,7 +167,7 @@ async function sellingOperations(xml, totalWeight, packet) {
 			}
 		}
 		
-		if (origins != []) {sendMessage(totalPrice, origins);}
+		sendMessage(totalPrice, origins);
 	}
 	else {
 		message.style.display = 'block';

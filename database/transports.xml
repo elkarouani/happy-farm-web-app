@@ -6,17 +6,17 @@
 		<telephone>phone 1</telephone>
 		<adresse>adresse 1</adresse>
 		<charge>1000</charge>
-		<prix>999.99</prix>
-		<reserve>true</reserve>
-		<expire>12-04-2019</expire>
+		<prix>500</prix>
+		<reserve>false</reserve>
+		<expire/>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>
 		<title>title 2</title>
 		<telephone>phone 2</telephone>
 		<adresse>adresse 2</adresse>
-		<charge>20000</charge>
-		<prix>999.99</prix>
+		<charge>2000</charge>
+		<prix>700</prix>
 		<reserve>false</reserve>
 		<expire/>
 	</transport>
@@ -26,7 +26,7 @@
 		<telephone>phone 3</telephone>
 		<adresse>adresse 3</adresse>
 		<charge>3000</charge>
-		<prix>999.99</prix>
+		<prix>1200</prix>
 		<reserve>false</reserve>
 		<expire/>
 	</transport>

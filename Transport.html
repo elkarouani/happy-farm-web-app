@@ -1,12 +1,14 @@
 <div class="container" style="margin: 10px 0 0 100px; background-color: white;">
-	<div class="row justify-content-between" style="margin: 40px 0 0 0;">
-		<div class="col-4">
-			<button id="reserveButton" class="btn btn-primary">Reserver</button>
+	<div id="commandZone" class="row d-flex justify-content-center" style="padding: 60px 0 0 0;">
+		<div id="reserveZone" class="col-4 alert alert-primary" hidden="hidden" style="margin-left: 30px;">
+			<label for="reserveButton"><strong>Réserver maintenant : </strong></label><br>
+			<button id="reservationModalHandler" class="btn btn-primary" style="margin-top: 10px;" data-toggle="modal" data-target="#reservationModal">
+			  Reserver
+			</button>
 		</div>
-		<div class="col-4">
-			<select id="transportsSelection" style="width: 12rem;">
-				<option value="" selected="selected"></option>
-			</select>
+		<div class="col-4 border border-success rounded" style="padding: 30px 0 30px 0; margin-right: 20px;">
+			<label for="transportsSelection">Selectionner un transport : </label>
+			<select id="transportsSelection" style="width: 12rem;"></select>
 		</div>
 	</div>
 	<div class="row" style="margin: 40px 0 0 0;">
@@ -16,7 +18,8 @@
 	</div>
 	<div class="row" style="margin: 40px 0 0 20px;">
 		<div class="col">
-			<table id="transportTable" class="table">
+			<h4 id="tableTitle" hidden="hidden">Les informations du transport : </h4><br>
+			<table id="transportTable" class="table" hidden="hidden">
 				<thead>
 					<th>Ref.</th>
 					<th>Titre</th>
@@ -29,6 +32,21 @@
 			</table><br><br>
 		</div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        Voulez vous vraiment réserver ce transport ?
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button id="reserveButton" type="button" class="btn btn-primary">Continuer</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="assets/js/transportScript.js"></script>

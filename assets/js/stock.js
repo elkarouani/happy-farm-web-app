@@ -133,7 +133,7 @@ const fillWithMedicences = () => {
 
 async function foodPurchaseOperations () {
     let availableCharge = await getAvailableCharge(xml);
-    if (availableCharge >= foodQuantityInput.value) {
+    if (availableCharge >= parseInt(foodQuantityInput.value)) {
         addFoodQuantity(xml, foodQuantityInput.value);
         decreaseUserBudget(xml, foodTotal.innerHTML.substring(('Total : ').length - 1));    
     } else {

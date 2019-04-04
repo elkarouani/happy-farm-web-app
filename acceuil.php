@@ -19,7 +19,11 @@
                     <li><a href="acceuil.php?action=settings"><ion-icon name="build"></ion-icon> Paramétres</a></li>
                 </ul>
                 <ul class="navbar-nav" style="margin-left: 10px;">
-                    <li><a href="connexionPage.html"><ion-icon name="log-out"></ion-icon> Log out</a></li>
+                    <li>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exitModal">
+                            <ion-icon name="log-out"></ion-icon> Log out
+                        </button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -76,6 +80,21 @@
                         <h4 id="greeting">Welcome [User Name]</h4>
                     </div>
                 <?php endif ?>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <strong>Vous voulez vraiment sortir ?</strong>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                        <a href="connexionPage.html" class="btn btn-primary">Oui</a>
+                    </div>
+                </div>
             </div>
         </div>
         
