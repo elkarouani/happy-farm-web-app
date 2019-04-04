@@ -98,14 +98,12 @@
 				if($veal->status == "sain"){
 					$veal->quarentaine = "";
 					$veal->disponible = "true";
+					echo 'Nous detectons des veaux qui dépassent la quarentaine, veuillez consulter la liste des disponibles !';
 				}
 			}
 		}
 
 		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
-		if ($result != false) {
-			echo 'moving veals to diponibilty';
-		}
 	}
 
 	function moveFromDisponobility ($reference) {

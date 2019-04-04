@@ -34,13 +34,11 @@
 			if ($expire == $now) {
 				$transport->expire = "";
 				$transport->reserve = "false";
+				echo 'Nous detectons l\'expiration de votre transports réservées, veuillez renseigner votre reservetion des transports !';
 			}
 		}
 
 		$result = file_put_contents('../database/transports.xml', $transports->saveXML());
-		if ($result != false) {
-			echo 'updating transports exparation';
-		}
 	}
 
 ?>

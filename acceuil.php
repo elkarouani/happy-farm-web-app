@@ -76,8 +76,20 @@
                         <?php include("Vente.html"); ?>
                     </div>
                 <?php else: ?>
-                    <div class="col-sm-9 text-right"> 
-                        <h4 id="greeting">Welcome [User Name]</h4>
+                    <div class="col-sm-9 text-right" style="padding-left: 150px;"> 
+                        <h4 id="greeting">Welcome [User Name]</h4><br><br>
+                        <div id="messageBlock1" class="alert alert-warning alert-dismissible fade show text-center" role="alert" hidden="hidden">
+                          <p id="message1"></p>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div id="messageBlock2" class="alert alert-warning alert-dismissible fade show text-center" role="alert" hidden="hidden">
+                          <p id="message2"></p>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
                     </div>
                 <?php endif ?>
             </div>
