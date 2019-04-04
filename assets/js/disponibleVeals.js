@@ -86,4 +86,8 @@ demandeServe.addEventListener('click', (event) => {
 			moveOutFromQuarentaine(xml, reference);
 		}
 	}
+	$('#requestModal').modal('hide');
+	setTimeout(function(){
+	    location.reload(); 
+	}, 3000);
 })
