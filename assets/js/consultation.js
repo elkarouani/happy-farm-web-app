@@ -3,6 +3,8 @@ let vealGroupsTable = document.getElementById("myTable");
 let filterInput = document.getElementById("myInput");
 let doctorSelector = document.getElementsByName("doctor");
 let medicencesSelector = document.getElementsByName("medicence");
+let editActions = document.getElementsByName("editStatus");
+let killActions = document.getElementsByName("killStatus");
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
@@ -55,7 +57,7 @@ const fillWithVealGroups = (veals) => {
 			doctorCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector'><option value='' selected='selected'></option></select>"
 			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='sick'>Malade</option><option value='healthy'>Sain</option></select>";
 			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='medicencesSelector' multiple='multiple'></select>";
-			actionsCell.innerHTML = "<button class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
+			actionsCell.innerHTML = "<button name='editStatus' class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button name='killStatus' class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
 
 			newLine.append(refCell, ageCell, weightCell, doctorCell, statusCell, medicenceCell, actionsCell);
 			vealGroupsTable.appendChild(newLine);
@@ -103,3 +105,15 @@ filterInput.addEventListener('keyup', (event) => {
 	    }
 	}
 })
+
+for (let i = 0 ; i < editActions.length ; i++){
+	editActions[i].addEventListener("click", () => {
+		let selectedRow = editActions[i].parentElement.parentElement.childNodes[0].firstChild.data;
+	})
+}
+
+for (let i = 0 ; i < killActions.length ; i++){
+	killActions[i].addEventListener("click", () => {
+		let selectedRow = killActions[i].parentElement.parentElement.childNodes[0].firstChild.data;
+	})
+}
