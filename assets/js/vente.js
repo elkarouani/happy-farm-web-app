@@ -1,7 +1,9 @@
 // caching DOM
-let filterInput = document.getElementById("myInput");
-let vealGroupsTable = document.getElementById("myTable");
-let removeVealButton = document.getElementById("removeVeal");
+const filterInput = document.getElementById("myInput");
+const vealGroupsTable = document.getElementById("myTable");
+const removeVealButton = document.getElementById("removeVeal");
+const entireTable = document.getElementById("entireTable");
+const contentSection = document.getElementById("contentSection");
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
@@ -137,6 +139,10 @@ const getAvailableCharge = (xml) => {
 
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
+if(vealGroupsTable.childNodes.length == 0){
+	entireTable.setAttribute("hidden", "hidden");
+	contentSection.innerHTML = "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux à vendre encore !</div><br/><br/>";
+}
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {
