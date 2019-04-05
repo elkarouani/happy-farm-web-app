@@ -61,7 +61,7 @@ const fillWithVealGroups = (veals) => {
 				"<button data-toggle='modal' data-target='#addConsultation"+i+"' class='btn btn-warning'>"+
 					"<ion-icon name='create' size='small'></ion-icon>"+
 				"</button><br><br>"+
-				"<button name='killStatus' class='btn btn-danger'>"+
+				"<button data-toggle='modal' data-target='#addhistory"+i+"' class='btn btn-danger'>"+
 					"<ion-icon name='flame' size='small'></ion-icon>"+
 				"</button>"+
 				"<div class='modal fade' id='addConsultation"+i+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
@@ -72,6 +72,19 @@ const fillWithVealGroups = (veals) => {
 								"<div class='modal-footer d-flex justify-content-center'>"+
 									"<button type='button' class='btn btn-secondary' data-dismiss='modal'>Non</button>"+
 									"<button type='button' class='btn btn-primary' name='editStatus'>Oui</button>"+
+								"</div>"+
+							"</div>"+
+						"</div>"+
+					"</div>"+
+				"</div>"+
+				"<div class='modal fade' id='addhistory"+i+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
+					"<div class='modal-dialog modal-dialog-centered' role='document'>"+
+						"<div class='modal-dialog modal-dialog-centered' role='document'>"+
+							"<div class='modal-content'>"+
+								"<div class='modal-body'>Est-ce qu'il est vraiment décès ?</div>"+
+								"<div class='modal-footer d-flex justify-content-center'>"+
+									"<button type='button' class='btn btn-secondary' data-dismiss='modal'>Non</button>"+
+									"<button type='button' class='btn btn-primary' name='killStatus'>Oui</button>"+
 								"</div>"+
 							"</div>"+
 						"</div>"+
@@ -192,16 +205,20 @@ const updateVealsGroupQuantity = (xml, data) => {
     xml.send("reference="+reference+"&action=afterDeath");
 }
 
-const deleteVeal = (xml, data) => {
+const deleteVeal = (xml, data, modalId) => {
 	xml = new XMLHttpRequest();
 	xml.open('POST', 'api/vealInfoUpdateService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
-            // message.style.display = 'block';
-            // message.innerHTML = xml.responseText;
+            $("#"+modalId).modal('hide');
             console.log(xml.responseText);
+            message.style.display = 'block';
+            message.innerHTML = "La consultation est bien envoyée";
+			setTimeout(function(){
+			    location.reload(); 
+			}, 3000);
         }
     }
 	
@@ -238,9 +255,10 @@ for (let i = 0 ; i < editActions.length ; i++){
 
 for (let i = 0 ; i < killActions.length ; i++){
 	killActions[i].addEventListener("click", () => {
-		let selectedRow = killActions[i].parentElement.parentElement.childNodes;
+		let modalId = killActions[0].parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id");
+		let selectedRow = killActions[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes;
 		addToHistory(xml, selectedRow);
 		updateVealsGroupQuantity(xml, selectedRow);
-		deleteVeal(xml, selectedRow);
+		deleteVeal(xml, selectedRow, modalId);
 	})
 }
