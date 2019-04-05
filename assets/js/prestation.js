@@ -32,6 +32,16 @@ const extractVealsFromXml = (xml) => {
     return getXmlData(xml).getElementsByTagName("veal");
 }
 
+const extractMedicencesInfo = () => {
+    xml = new XMLHttpRequest();
+    xml.open('GET', 'database/stock.xml', false);
+    xml.send();
+    
+    let medicaments = getXmlData(xml).getElementsByTagName("medicament");
+    
+    return medicaments;
+} 
+
 const getConsultationsData = (xml) => {
 	xml.open('GET', 'database/consultation.xml', false);
 	xml.send();
@@ -41,11 +51,13 @@ const getConsultationsData = (xml) => {
 
 const getMedicencesByVeal = (xml, reference) => {
 	let consultations = getConsultationsData(xml);
+	let medicences = [];
 	for(let i = 0 ; i < consultations.length ; i++){
 		if (consultations[i].childNodes[0].firstChild.data == reference) {
-			return consultations[i].childNodes[5].childNodes;
+			medicences = consultations[i].childNodes[5].childNodes;
 		}
 	}
+	return medicences;
 }
 
 const fillTable = (veals) => {
@@ -60,16 +72,19 @@ const fillTable = (veals) => {
 			let actionCell = document.createElement("td");
 			let medicencesSelection = document.createElement("select");
 			medicencesSelection.setAttribute("class", "form-control");
+			medicencesSelection.setAttribute("name", "medicencesSelection");
+			let emptyOption = document.createElement("option");
+			medicencesSelection.appendChild(emptyOption);
 
 			for(let j = 0 ; j < medicences.length ; j++){
 				let option = document.createElement("option");
-				option.value = medicences[0].firstChild.data;
-				option.innerText = medicences[0].firstChild.data;
+				option.value = medicences[j].firstChild.data;
+				option.innerText = medicences[j].firstChild.data;
 				medicencesSelection.appendChild(option);
 			}
 
 			refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
-			quantityCell.innerHTML = "<input class='form-control' type='number' value='' style='width: 10rem; padding: .3rem .5rem;'/>";
+			quantityCell.innerHTML = "<input class='form-control' min='1' type='number' value='1' style='width: 10rem; padding: .3rem .5rem;'/>";
 			actionCell.innerHTML = "<button class='btn btn-primary'>Envoyer</button>";
 			
 			medicencesCell.appendChild(medicencesSelection);
@@ -79,7 +94,23 @@ const fillTable = (veals) => {
 	}
 }
 
+const getMedicenceQuantityByTitle = (xml, title) => {
+	let medicences = extractMedicencesInfo(xml);
+	for(let i = 0 ; i < medicences.length ; i++) {
+		if (medicences[i].childNodes[1].firstChild.data == title) {
+			return parseInt(medicences[i].childNodes[5].firstChild.data);
+		}
+	}
+}
+
 // main : 
 fillTable(extractVealsFromXml(xml));
 foodQuantityInput.setAttribute("max", extractFoodInfo(xml)[1]);
+
 // events : 
+const medicencesSelector = document.getElementsByName("medicencesSelection");
+for(let i = 0 ; i < medicencesSelector.length ; i++) {
+	medicencesSelector[i].addEventListener("change", (event) => {
+		medicencesSelector[i].parentElement.parentElement.childNodes[2].firstChild.setAttribute("max", getMedicenceQuantityByTitle(xml, medicencesSelector[i].value));
+	})
+}
