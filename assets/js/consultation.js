@@ -177,6 +177,21 @@ const addToHistory = (xml, data) => {
     xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=history");
 }
 
+const updateVealsGroupQuantity = (xml, data) => {
+	let reference = data[0].firstChild.data;
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/groupsInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+	
+    xml.send("reference="+reference+"&action=afterDeath");
+}
+
 const deleteVeal = (xml, data) => {
 	xml = new XMLHttpRequest();
 	xml.open('POST', 'api/vealInfoUpdateService.php', true);
@@ -225,6 +240,7 @@ for (let i = 0 ; i < killActions.length ; i++){
 	killActions[i].addEventListener("click", () => {
 		let selectedRow = killActions[i].parentElement.parentElement.childNodes;
 		addToHistory(xml, selectedRow);
+		updateVealsGroupQuantity(xml, selectedRow);
 		deleteVeal(xml, selectedRow);
 	})
 }
