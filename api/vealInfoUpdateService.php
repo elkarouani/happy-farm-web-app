@@ -1,6 +1,7 @@
 <?php  
 	if (isset($_POST) && $_POST['action'] == 'insert') {insertVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'delete') {deleteVeals($_POST);}
+	if (isset($_POST) && $_POST['action'] == 'update') {updateVeal($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'checkDesponibility') {checkDesponibility();}
 	if (isset($_POST) && $_POST['action'] == 'moveFromDisponobility') {moveFromDisponobility($_POST['reference']);}
 
@@ -66,6 +67,23 @@
 
 		if ($xml->save('../database/farm.xml') != false) {
 			echo 'Veaux sont vendus avec succées';
+		}
+	}
+
+	function updateVeal($data) {
+		$farm = simplexml_load_file('../database/farm.xml');
+		foreach ($farm as $veal) {
+			if ($veal->reference == $data['reference']) {
+				$veal->age = $data['age'];
+				$veal->weight = $data['poids'];
+				$veal->status = $data['status'];
+				$veal->consultation = "false";
+			}
+		}
+
+		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
+		if ($result != false) {
+			echo 'Les informations sont bien enregistrés';
 		}
 	}
 

@@ -55,7 +55,7 @@ const fillWithVealGroups = (veals) => {
 			ageCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[4].firstChild.data + "' style='width: 4rem; padding: .3rem .5rem;'/>";
 			weightCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[3].firstChild.data + "' style='width: 4rem; padding: .3rem .5rem;'/>";
 			doctorCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector'><option value='' selected='selected'></option></select>"
-			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='sick'>Malade</option><option value='healthy'>Sain</option></select>";
+			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='malade'>Malade</option><option value='sain'>Sain</option></select>";
 			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='medicencesSelector' multiple='multiple'></select>";
 			actionsCell.innerHTML = "<button name='editStatus' class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button name='killStatus' class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
 
@@ -118,7 +118,7 @@ const addToHistory = (xml, data) => {
 	let reference = data[0].firstChild.data;
 	let age = data[1].firstChild.value;
 	let poids = data[2].firstChild.value;
-	let status = "dead";
+	let status = "décès";
 	xml = new XMLHttpRequest();
 	xml.open('POST', 'api/consultationsInfoUpdateService.php', true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -132,6 +132,26 @@ const addToHistory = (xml, data) => {
     }
 
     xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=history");
+}
+
+const updateVealInfo = (xml, data) => {
+	let reference = data[0].firstChild.data;
+	let age = data[1].firstChild.value;
+	let poids = data[2].firstChild.value;
+	let status = data[4].firstChild.value;
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/vealInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            // message.style.display = 'block';
+            // message.innerHTML = xml.responseText;
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=update");
 }
 
 // main : 
@@ -156,7 +176,8 @@ filterInput.addEventListener('keyup', (event) => {
 for (let i = 0 ; i < editActions.length ; i++){
 	editActions[i].addEventListener("click", () => {
 		let selectedRow = editActions[i].parentElement.parentElement.childNodes;
-		saveConsultation(xml, selectedRow);
+		// saveConsultation(xml, selectedRow);
+		updateVealInfo(xml, selectedRow);
 	})
 }
 
