@@ -37,7 +37,7 @@
                         <a class="btn btn-info" href="acceuil.php?action=quarentaine">Quarentaine</a>
                         <a class="btn btn-info" href="acceuil.php?action=disponibles">Voaux Disponibles</a>
                         <a class="btn btn-info" href="acceuil.php?action=consultation">Consultation de santé</a>
-                        <a class="btn btn-info" href="#">Prestation</a>
+                        <a class="btn btn-info" href="acceuil.php?action=prestation">Prestation</a>
                         <a class="btn btn-info" href="acceuil.php?action=stock">Stock</a>
                         <a class="btn btn-info" href="acceuil.php?action=vente">Vente des voaux</a>
                     </div>
@@ -66,6 +66,10 @@
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'consultation'): ?>
                     <div class="col-sm-9"> 
                         <?php include("Consultation.html"); ?>
+                    </div>
+                <?php elseif (isset($_GET['action']) && $_GET['action'] == 'prestation'): ?>
+                    <div class="col-sm-9"> 
+                        <?php include("prestation.html"); ?>
                     </div>
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'stock'): ?>
                     <div class="col-sm-9"> 
