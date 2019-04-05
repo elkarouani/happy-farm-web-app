@@ -13,7 +13,9 @@
 				<div class="card-body">
 					<input id="foodQuantityInput" class="form-control text-center" type="number" min="1"><br>
 					<p id="foodTotal">Total : </p>
-					<button id="buyFood" class="btn btn-primary">Acheter</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buyFoodModal">
+					  Acheter
+					</button>
 				</div>
 				<div class="card-header">
 					<p id="foodQuantity"></p>
@@ -31,7 +33,9 @@
 					</select><br>
 					<input id="medicenceQuantityInput" class="form-control" type="number" min="1"><br>
 					<p id="medicencesTotal">Total : </p>
-					<button id="buyMedicence" class="btn btn-primary">Acheter</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buyMedicenceModal">
+					  Acheter
+					</button>
 				</div>
 				<div class="card-header">
 					<table class="table">
@@ -46,6 +50,34 @@
 		</div>
 	</div>
 	<br>
+</div>
+
+<div class="modal fade" id="buyFoodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Vous voullez vraiment continuer l'achat ?
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+        <button id="buyFood" type="button" class="btn btn-primary">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="buyMedicenceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Vous voullez vraiment continuer l'achat ?
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+        <button id="buyMedicence" type="button" class="btn btn-primary">Oui</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="assets/js/stock.js"></script>

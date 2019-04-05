@@ -70,6 +70,20 @@ const getAvailableCharge = (xml) => {
     });
 }
 
+const decreaseUserBudget = (xml, total) => {
+    xml = new XMLHttpRequest();
+    xml.open('POST', 'api/userInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("total="+parseInt(total)+"&action=decreaseBudget");
+};
+
 const addFoodQuantity = (xml, quantity) => {
     xml = new XMLHttpRequest();
     xml.open('POST', 'api/stockInfoUpdateService.php', true);
@@ -78,6 +92,12 @@ const addFoodQuantity = (xml, quantity) => {
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
             console.log(xml.responseText);
+            message.style.display = 'block';
+            message.innerHTML = "L'achat de nourriture est términée avec succées";
+            $("#buyFoodModal").modal('hide');
+            setTimeout(function(){
+                location.reload(); 
+            }, 3000);
         }
     }
 
@@ -92,26 +112,18 @@ const addMedicineQuantity = (xml, medicenceTitle, medicenceQuantity) => {
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
             console.log(xml.responseText);
+            message.style.display = 'block';
+            message.innerHTML = "L'achat des médicaments est términée avec succées";
+            $("#buyMedicenceModal").modal('hide');
+            setTimeout(function(){
+                location.reload(); 
+            }, 3000);
         }
     }
 
     xml.send("title="+medicenceTitle+"&quantity="+medicenceQuantity+"&action=addMedicenceQuantity");
 }
 
-const decreaseUserBudget = (xml, total) => {
-    xml = new XMLHttpRequest();
-    xml.open('POST', 'api/userInfoUpdateService.php', true);
-    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
-    xml.onreadystatechange = () => {
-        if (xml.readyState == 4 && xml.status == 200) {
-            message.style.display = 'block';
-            message.innerHTML = "L'achat de nourriture est términée avec succées";
-        }
-    }
-
-    xml.send("total="+parseInt(total)+"&action=decreaseBudget");
-};
 
 const fillWithMedicences = () => {
     let medicaments = extractMedicencesInfo(xml);
@@ -134,8 +146,8 @@ const fillWithMedicences = () => {
 async function foodPurchaseOperations () {
     let availableCharge = await getAvailableCharge(xml);
     if (availableCharge >= parseInt(foodQuantityInput.value)) {
-        addFoodQuantity(xml, foodQuantityInput.value);
         decreaseUserBudget(xml, foodTotal.innerHTML.substring(('Total : ').length - 1));    
+        addFoodQuantity(xml, foodQuantityInput.value);
     } else {
         message.style.display = 'block';
         message.innerHTML = "transportation insuffisante";
@@ -145,8 +157,8 @@ async function foodPurchaseOperations () {
 async function medicencePurchaseOperations (medicenceTitle, medicenceQuantity, price) {
     let availableCharge = await getAvailableCharge(xml);
     if (availableCharge >= medicenceQuantity) {
-        addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
         decreaseUserBudget(xml, price);    
+        addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
     } else {
         message.style.display = 'block';
         message.innerHTML = "transportation insuffisante";
