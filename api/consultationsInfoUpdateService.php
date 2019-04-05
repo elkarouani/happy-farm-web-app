@@ -35,4 +35,29 @@ if (isset($_POST['action']) && $_POST['action'] == "save") {
 	}
 }
 
+if (isset($_POST['action']) && $_POST['action'] == "history") {
+	$xml = new DomDocument("1.0", "UTF-8");
+	$xml->load('../database/consultation.xml');
+	$xml->recover = true;
+	$consultations = $xml->getElementsByTagName("consultations")->item(0);
+	
+	$consultation = $xml->createElement("consultation");
+	
+	$reference = $xml->createElement("reference", $_POST['reference']);
+	$age = $xml->createElement("age", $_POST['age']);
+	$poid = $xml->createElement("poids", $_POST['poids']);
+	$status = $xml->createElement("status", $_POST['status']);
+
+	$consultation->appendChild($reference);
+	$consultation->appendChild($age);
+	$consultation->appendChild($poid);
+	$consultation->appendChild($status);
+
+	$consultations->appendChild($consultation);
+
+	if ($xml->save('../database/consultation.xml') != false) {
+		echo 'well saved';
+	}
+}
+
 ?>
