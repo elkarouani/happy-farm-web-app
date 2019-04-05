@@ -57,7 +57,26 @@ const fillWithVealGroups = (veals) => {
 			doctorCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector'><option value='' selected='selected'></option></select>"
 			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='malade'>Malade</option><option value='sain'>Sain</option></select>";
 			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='medicencesSelector' multiple='multiple'></select>";
-			actionsCell.innerHTML = "<button name='editStatus' class='btn btn-warning'><ion-icon name='create' size='small'></ion-icon></button><br><br><button name='killStatus' class='btn btn-danger'><ion-icon name='flame' size='small'></ion-icon></button>";
+			actionsCell.innerHTML = "" +
+				"<button data-toggle='modal' data-target='#addConsultation"+i+"' class='btn btn-warning'>"+
+					"<ion-icon name='create' size='small'></ion-icon>"+
+				"</button><br><br>"+
+				"<button name='killStatus' class='btn btn-danger'>"+
+					"<ion-icon name='flame' size='small'></ion-icon>"+
+				"</button>"+
+				"<div class='modal fade' id='addConsultation"+i+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
+					"<div class='modal-dialog modal-dialog-centered' role='document'>"+
+						"<div class='modal-dialog modal-dialog-centered' role='document'>"+
+							"<div class='modal-content'>"+
+								"<div class='modal-body'>Voulez vraiment que cette consultation mise en application ?</div>"+
+								"<div class='modal-footer d-flex justify-content-center'>"+
+									"<button type='button' class='btn btn-secondary' data-dismiss='modal'>Non</button>"+
+									"<button type='button' class='btn btn-primary' name='editStatus'>Oui</button>"+
+								"</div>"+
+							"</div>"+
+						"</div>"+
+					"</div>"+
+				"</div>";
 
 			newLine.append(refCell, ageCell, weightCell, doctorCell, statusCell, medicenceCell, actionsCell);
 			vealGroupsTable.appendChild(newLine);
@@ -134,7 +153,7 @@ const addToHistory = (xml, data) => {
     xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=history");
 }
 
-const updateVealInfo = (xml, data) => {
+const updateVealInfo = (xml, data, modalId) => {
 	let reference = data[0].firstChild.data;
 	let age = data[1].firstChild.value;
 	let poids = data[2].firstChild.value;
@@ -145,9 +164,13 @@ const updateVealInfo = (xml, data) => {
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
-            // message.style.display = 'block';
-            // message.innerHTML = xml.responseText;
+        	$("#"+modalId).modal('hide');
             console.log(xml.responseText);
+            message.style.display = 'block';
+            message.innerHTML = "La consultation est bien envoyée";
+			setTimeout(function(){
+			    location.reload(); 
+			}, 3000);
         }
     }
 
@@ -175,15 +198,16 @@ filterInput.addEventListener('keyup', (event) => {
 
 for (let i = 0 ; i < editActions.length ; i++){
 	editActions[i].addEventListener("click", () => {
-		let selectedRow = editActions[i].parentElement.parentElement.childNodes;
-		// saveConsultation(xml, selectedRow);
-		updateVealInfo(xml, selectedRow);
+		let modalId = editActions[0].parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("id");
+		let selectedRow = editActions[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes;
+		saveConsultation(xml, selectedRow);
+		updateVealInfo(xml, selectedRow, modalId);
 	})
 }
 
 for (let i = 0 ; i < killActions.length ; i++){
 	killActions[i].addEventListener("click", () => {
-		let selectedRow = killActions[i].parentElement.parentElement.childNodes;
+		let selectedRow = killActions[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes;
 		addToHistory(xml, selectedRow);
 	})
 }

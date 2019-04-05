@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<consultations></consultations>
+<consultations><consultation><reference>JDIDA1</reference><age>10</age><poids>50</poids><veterinaire>doctor 1</veterinaire><status>malade</status><médicaments><médicament>titre1</médicament><médicament>titre2</médicament></médicaments></consultation></consultations>
