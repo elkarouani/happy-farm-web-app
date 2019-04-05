@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<consultations></consultations>
+<consultations><consultation><reference>TAZA1</reference><age>11</age><poids>40</poids><veterinaire>doctor 1</veterinaire><status>sain</status><médicaments><médicament/></médicaments><date>April 5, 2019, 10:57 am</date></consultation></consultations>

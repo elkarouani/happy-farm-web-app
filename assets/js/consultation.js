@@ -1,10 +1,13 @@
 // caching DOM
-let vealGroupsTable = document.getElementById("myTable");
-let filterInput = document.getElementById("myInput");
-let doctorSelector = document.getElementsByName("doctor");
-let medicencesSelector = document.getElementsByName("medicence");
-let editActions = document.getElementsByName("editStatus");
-let killActions = document.getElementsByName("killStatus");
+const vealGroupsTable = document.getElementById("myTable");
+const filterInput = document.getElementById("myInput");
+const doctorSelector = document.getElementsByName("doctor");
+const medicencesSelector = document.getElementsByName("medicence");
+const editActions = document.getElementsByName("editStatus");
+const killActions = document.getElementsByName("killStatus");
+const entireTable = document.getElementById("entireTable");
+const contentSection = document.getElementById("contentSection");
+
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
@@ -39,7 +42,6 @@ const extractMedicencesNames = (xml) => {
 }
 
 const fillWithVealGroups = (veals) => {
-	
 	for (let i = 0; i < veals.length; i++) {
 		if (veals[i].childNodes[8].firstChild.data == "true") {
 			let newLine = document.createElement("tr");
@@ -229,6 +231,10 @@ const deleteVeal = (xml, data, modalId) => {
 fillWithVealGroups(extractVealsFromXml(xml));
 fillWithDoctors(extractDoctorsNames(xml));
 fillsWithMedicences(extractMedicencesNames(xml));
+if(vealGroupsTable.childNodes.length == 0){
+	entireTable.setAttribute("hidden", "hidden");
+	contentSection.innerHTML = "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux à consulter !</div><br/><br/>";
+}
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {

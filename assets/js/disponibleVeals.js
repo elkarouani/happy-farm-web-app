@@ -1,7 +1,10 @@
 // caching DOM
-let vealGroupsTable = document.getElementById("myTable");
-let filterInput = document.getElementById("myInput");
-let demandeServe = document.getElementById("demandeServe");
+const vealGroupsTable = document.getElementById("myTable");
+const filterInput = document.getElementById("myInput");
+const demandeServe = document.getElementById("demandeServe");
+const entireTable = document.getElementById("entireTable");
+const contentSection = document.getElementById("contentSection");
+
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
 
@@ -62,6 +65,10 @@ const moveOutFromQuarentaine = (xml, reference) => {
 
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
+if(vealGroupsTable.childNodes.length == 0){
+	entireTable.setAttribute("hidden", "hidden");
+	contentSection.innerHTML = "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux disponibles encore !</div><br/><br/>";
+}
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {
