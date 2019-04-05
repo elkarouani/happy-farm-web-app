@@ -133,26 +133,6 @@ const saveConsultation = (xml, data) => {
     xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&doctor="+doctor+"&status="+status+"&medicences="+medicences+"&action=save");
 }
 
-const addToHistory = (xml, data) => {
-	let reference = data[0].firstChild.data;
-	let age = data[1].firstChild.value;
-	let poids = data[2].firstChild.value;
-	let status = "décès";
-	xml = new XMLHttpRequest();
-	xml.open('POST', 'api/consultationsInfoUpdateService.php', true);
-    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
-    xml.onreadystatechange = () => {
-        if (xml.readyState == 4 && xml.status == 200) {
-            // message.style.display = 'block';
-            // message.innerHTML = xml.responseText;
-            console.log(xml.responseText);
-        }
-    }
-
-    xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=history");
-}
-
 const updateVealInfo = (xml, data, modalId) => {
 	let reference = data[0].firstChild.data;
 	let age = data[1].firstChild.value;
@@ -175,6 +155,42 @@ const updateVealInfo = (xml, data, modalId) => {
     }
 
     xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=update");
+}
+
+const addToHistory = (xml, data) => {
+	let reference = data[0].firstChild.data;
+	let age = data[1].firstChild.value;
+	let poids = data[2].firstChild.value;
+	let status = "décès";
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/consultationsInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            // message.style.display = 'block';
+            // message.innerHTML = xml.responseText;
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&status="+status+"&action=history");
+}
+
+const deleteVeal = (xml, data) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/vealInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            // message.style.display = 'block';
+            // message.innerHTML = xml.responseText;
+            console.log(xml.responseText);
+        }
+    }
+	
+    xml.send("reference="+data[0].firstChild.data+"&action=delete");
 }
 
 // main : 
@@ -207,7 +223,8 @@ for (let i = 0 ; i < editActions.length ; i++){
 
 for (let i = 0 ; i < killActions.length ; i++){
 	killActions[i].addEventListener("click", () => {
-		let selectedRow = killActions[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes;
+		let selectedRow = killActions[i].parentElement.parentElement.childNodes;
 		addToHistory(xml, selectedRow);
+		deleteVeal(xml, selectedRow);
 	})
 }

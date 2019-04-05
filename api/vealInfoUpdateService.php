@@ -58,7 +58,7 @@
 		$rootTag = $xml->getElementsByTagName("farm")->item(0);
 		$vealsCollection = $rootTag->childNodes;
 
-		for ($i = 0 ; $i < ($vealsCollection->length - 1) ; $i++) {
+		for ($i = 0 ; $i < $vealsCollection->length ; $i++) {
 			$foundedReference = $vealsCollection->item($i)->getElementsByTagName("reference")->item(0)->firstChild->data;
 			if ($foundedReference == $reference) {
 				$rootTag->removeChild($vealsCollection->item($i));
