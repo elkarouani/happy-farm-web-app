@@ -87,6 +87,33 @@ const fillsWithMedicences = (medicences) => {
 	}
 }
 
+const saveConsultation = (xml, data) => {
+	let medicences = [];
+	for(let i = 0 ; i < data[5].firstChild.childNodes.length ; i++){
+		if(data[5].firstChild.childNodes[i].selected){
+			medicences[i] = data[5].firstChild.childNodes[i].value;
+		}
+	}
+	let reference = data[0].firstChild.data;
+	let age = data[1].firstChild.value;
+	let poids = data[2].firstChild.value;
+	let doctor = data[3].firstChild.value;
+	let status = data[4].firstChild.value;
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/consultationsInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            // message.style.display = 'block';
+            // message.innerHTML = xml.responseText;
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("reference="+reference+"&age="+age+"&poids="+poids+"&doctor="+doctor+"&status="+status+"&medicences="+medicences+"&action=save");
+}
+
 // main : 
 fillWithVealGroups(extractVealsFromXml(xml));
 fillWithDoctors(extractDoctorsNames(xml));
@@ -108,12 +135,14 @@ filterInput.addEventListener('keyup', (event) => {
 
 for (let i = 0 ; i < editActions.length ; i++){
 	editActions[i].addEventListener("click", () => {
-		let selectedRow = editActions[i].parentElement.parentElement.childNodes[0].firstChild.data;
+		let selectedRow = editActions[i].parentElement.parentElement.childNodes;
+		saveConsultation(xml, selectedRow);
 	})
 }
 
 for (let i = 0 ; i < killActions.length ; i++){
 	killActions[i].addEventListener("click", () => {
 		let selectedRow = killActions[i].parentElement.parentElement.childNodes[0].firstChild.data;
+
 	})
 }
