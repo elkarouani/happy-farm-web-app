@@ -9,7 +9,9 @@
             <div class="col-4 border-right">
                 <label for="foodQuantityInput">Choisie la quantité de nourriture : </label>
                 <input id="foodQuantityInput" type="number" class="form-control" min="1" value="1"><br>
-                <button class="btn btn-primary" id="sendFood">Envoyer</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendFoodModal">
+                  Envoyer
+                </button>
             </div>
             <div class="col">
                 <label for="entireTable">Guérissez vos veaux : </label>
@@ -27,6 +29,20 @@
             </div>
         </div>
     </div>            
+</div>
+
+<div class="modal fade" id="sendFoodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        Vous voulez vraiment continuer cette opération ? 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+        <button id="sendFood" type="button" class="btn btn-primary">Oui</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="assets/js/prestation.js"></script>

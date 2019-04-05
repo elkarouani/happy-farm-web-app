@@ -125,6 +125,12 @@ const updateAllVealsPrice = (xml) => {
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
             console.log(xml.responseText);
+        	$("#sendFoodModal").modal('hide');
+        	message.style.display = 'block';
+            message.innerHTML = "La quantité de nouriture est bien envoyée";
+            setTimeout(function(){
+			    location.reload(); 
+			}, 3000);
         }
     }
     xml.send("action=updateAllPrices");
