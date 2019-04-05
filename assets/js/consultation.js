@@ -52,8 +52,8 @@ const fillWithVealGroups = (veals) => {
 			let actionsCell = document.createElement("td");
 			
 			refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
-			ageCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[4].firstChild.data + "' />";
-			weightCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[3].firstChild.data + "' />";
+			ageCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[4].firstChild.data + "' style='width: 4rem; padding: .3rem .5rem;'/>";
+			weightCell.innerHTML = "<input class='form-control' type='number' value='" + veals[i].childNodes[3].firstChild.data + "' style='width: 4rem; padding: .3rem .5rem;'/>";
 			doctorCell.innerHTML = "<select class='form-control' name='doctor' id='doctorSelector'><option value='' selected='selected'></option></select>"
 			statusCell.innerHTML = "<select class='form-control' name='status' id='statusSelector'><option value='' selected='selected'></option><option value='sick'>Malade</option><option value='healthy'>Sain</option></select>";
 			medicenceCell.innerHTML = "<select class='form-control' name='medicence' id='medicencesSelector' multiple='multiple'></select>";
