@@ -81,7 +81,7 @@ const addFoodQuantity = (xml, quantity) => {
         }
     }
 
-    xml.send("quantity="+quantity+"&action=updateFoodQuantity");
+    xml.send("quantity="+quantity+"&action=addFoodQuantity");
 }
 
 const addMedicineQuantity = (xml, medicenceTitle, medicenceQuantity) => {

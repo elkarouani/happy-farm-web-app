@@ -1,6 +1,7 @@
 // caching DOM
 const vealGroupsTable = document.getElementById("myTable");
 const foodQuantityInput = document.getElementById("foodQuantityInput");
+const sendFood = document.getElementById("sendFood");
 
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
@@ -103,6 +104,20 @@ const getMedicenceQuantityByTitle = (xml, title) => {
 	}
 }
 
+const updateFoodStock = (xml, quantity) => {
+	xml = new XMLHttpRequest();
+    xml.open('POST', 'api/stockInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+
+    xml.send("quantity="+quantity+"&action=updateFoodQuantity");
+}
+
 // main : 
 fillTable(extractVealsFromXml(xml));
 foodQuantityInput.setAttribute("max", extractFoodInfo(xml)[1]);
@@ -114,3 +129,8 @@ for(let i = 0 ; i < medicencesSelector.length ; i++) {
 		medicencesSelector[i].parentElement.parentElement.childNodes[2].firstChild.setAttribute("max", getMedicenceQuantityByTitle(xml, medicencesSelector[i].value));
 	})
 }
+
+sendFood.addEventListener('click', (event) => {
+	updateFoodStock(xml, foodQuantityInput.value);
+	// updateAllVealsPrice();
+})
