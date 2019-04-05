@@ -95,7 +95,7 @@ const addMedicineQuantity = (xml, medicenceTitle, medicenceQuantity) => {
         }
     }
 
-    xml.send("title="+medicenceTitle+"&quantity="+medicenceQuantity+"&action=updateMedicenceQuantity");
+    xml.send("title="+medicenceTitle+"&quantity="+medicenceQuantity+"&action=addMedicenceQuantity");
 }
 
 const decreaseUserBudget = (xml, total) => {

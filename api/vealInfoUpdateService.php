@@ -3,6 +3,7 @@
 	if (isset($_POST) && $_POST['action'] == 'delete') {deleteVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'update') {updateVeal($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'updateAllPrices') {updateAllPrices();}
+	if (isset($_POST) && $_POST['action'] == 'updateVealPrice') {updateVealPrice($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'checkDesponibility') {checkDesponibility();}
 	if (isset($_POST) && $_POST['action'] == 'moveFromDisponobility') {moveFromDisponobility($_POST['reference']);}
 
@@ -143,6 +144,20 @@
 		$farm = simplexml_load_file('../database/farm.xml');
 		foreach ($farm as $veal) {
 			$veal->bougthBy = (int)$veal->bougthBy + ((int)$veal->bougthBy * (5/100));
+		}
+
+		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
+		if ($result != false) {
+			echo 'Les informations sont bien enregistrés';
+		}
+	}
+
+	function updateVealPrice($data) {
+		$farm = simplexml_load_file('../database/farm.xml');
+		foreach ($farm as $veal) {
+			if ($veal->reference == $data["reference"]) {
+				$veal->bougthBy = (int)$veal->bougthBy + ((int)$veal->bougthBy * (10/100));
+			}
 		}
 
 		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
