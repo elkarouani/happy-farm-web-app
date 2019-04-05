@@ -21,25 +21,38 @@ const extractVealsFromXml = (xml) => {
 }
 
 const fillWithVealGroups = (veals) => {
-	
+	let sum = 0;
+	let count = 0;
 	for (let i = 0; i < veals.length; i++) {
-		let newLine = document.createElement("tr");
-		let refCell = document.createElement("td");
-		let originCell = document.createElement("td");
-		let weightCell = document.createElement("td");
-		let ageCell = document.createElement("td");
-		let priceCell = document.createElement("td");
-		let choicePointerCell = document.createElement("td");
-		
-		refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
-		originCell.innerHTML = veals[i].childNodes[2].firstChild.data;
-		weightCell.innerHTML = veals[i].childNodes[3].firstChild.data;
-		ageCell.innerHTML = veals[i].childNodes[4].firstChild.data;
-		priceCell.innerHTML = veals[i].childNodes[5].firstChild.data;
-		choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
+		if (veals[i].childNodes[7].firstChild.data == "true" && veals[i].childNodes[8].firstChild.data == "false" && veals[i].childNodes[9].firstChild.data == "sain") {
+			sum += parseInt(veals[i].childNodes[3].firstChild.data);
+			count++;
+		}
+	}
 
-		newLine.append(refCell, originCell, weightCell, ageCell, priceCell, choicePointerCell);
-		vealGroupsTable.appendChild(newLine);
+	for (let i = 0; i < veals.length; i++) {
+		if (veals[i].childNodes[7].firstChild.data == "true" && 
+			veals[i].childNodes[8].firstChild.data == "false" && 
+			veals[i].childNodes[9].firstChild.data == "sain" &&
+			parseInt(veals[i].childNodes[3].firstChild.data) >= Math.floor(sum/count)) {
+			let newLine = document.createElement("tr");
+			let refCell = document.createElement("td");
+			let originCell = document.createElement("td");
+			let weightCell = document.createElement("td");
+			let ageCell = document.createElement("td");
+			let priceCell = document.createElement("td");
+			let choicePointerCell = document.createElement("td");
+			
+			refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
+			originCell.innerHTML = veals[i].childNodes[2].firstChild.data;
+			weightCell.innerHTML = veals[i].childNodes[3].firstChild.data;
+			ageCell.innerHTML = veals[i].childNodes[4].firstChild.data;
+			priceCell.innerHTML = veals[i].childNodes[5].firstChild.data;
+			choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
+
+			newLine.append(refCell, originCell, weightCell, ageCell, priceCell, choicePointerCell);
+			vealGroupsTable.appendChild(newLine);
+		}
 	}
 }
 
