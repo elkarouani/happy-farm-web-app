@@ -2,6 +2,7 @@
 	if (isset($_POST) && $_POST['action'] == 'insert') {insertVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'delete') {deleteVeals($_POST);}
 	if (isset($_POST) && $_POST['action'] == 'update') {updateVeal($_POST);}
+	if (isset($_POST) && $_POST['action'] == 'updateAllPrices') {updateAllPrices();}
 	if (isset($_POST) && $_POST['action'] == 'checkDesponibility') {checkDesponibility();}
 	if (isset($_POST) && $_POST['action'] == 'moveFromDisponobility') {moveFromDisponobility($_POST['reference']);}
 
@@ -135,6 +136,18 @@
 		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
 		if ($result != false) {
 			echo 'Demande de consultation envoyée';
+		}
+	}
+
+	function updateAllPrices() {
+		$farm = simplexml_load_file('../database/farm.xml');
+		foreach ($farm as $veal) {
+			$veal->bougthBy = (int)$veal->bougthBy + ((int)$veal->bougthBy * (5/100));
+		}
+
+		$result = file_put_contents('../database/farm.xml', $farm->saveXML());
+		if ($result != false) {
+			echo 'Les informations sont bien enregistrés';
 		}
 	}
 ?>

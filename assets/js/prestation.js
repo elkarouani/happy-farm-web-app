@@ -118,6 +118,18 @@ const updateFoodStock = (xml, quantity) => {
     xml.send("quantity="+quantity+"&action=updateFoodQuantity");
 }
 
+const updateAllVealsPrice = (xml) => {
+	xml = new XMLHttpRequest();
+    xml.open('POST', 'api/vealInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+    xml.send("action=updateAllPrices");
+}
+
 // main : 
 fillTable(extractVealsFromXml(xml));
 foodQuantityInput.setAttribute("max", extractFoodInfo(xml)[1]);
@@ -132,5 +144,5 @@ for(let i = 0 ; i < medicencesSelector.length ; i++) {
 
 sendFood.addEventListener('click', (event) => {
 	updateFoodStock(xml, foodQuantityInput.value);
-	// updateAllVealsPrice();
+	updateAllVealsPrice(xml);
 })
