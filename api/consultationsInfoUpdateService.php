@@ -14,7 +14,7 @@ if (isset($_POST['action']) && $_POST['action'] == "save") {
 	$veterinaire = $xml->createElement("veterinaire", $_POST['doctor']);
 	$status = $xml->createElement("status", $_POST['status']);
 	$medicaments = $xml->createElement("médicaments");
-
+	$consultationDate = $xml->createElement("date", date("F j, Y, g:i a"));
 	$medicamentsList = explode(",", $_POST['medicences']);
 	foreach ($medicamentsList as $element) {
 		$medicament = $xml->createElement("médicament", $element);
@@ -27,6 +27,7 @@ if (isset($_POST['action']) && $_POST['action'] == "save") {
 	$consultation->appendChild($veterinaire);
 	$consultation->appendChild($status);
 	$consultation->appendChild($medicaments);
+	$consultation->appendChild($consultationDate);
 
 	$consultations->appendChild($consultation);
 
@@ -47,11 +48,13 @@ if (isset($_POST['action']) && $_POST['action'] == "history") {
 	$age = $xml->createElement("age", $_POST['age']);
 	$poid = $xml->createElement("poids", $_POST['poids']);
 	$status = $xml->createElement("status", $_POST['status']);
+	$consultationDate = $xml->createElement("date", date("F j, Y, g:i a"));
 
 	$consultation->appendChild($reference);
 	$consultation->appendChild($age);
 	$consultation->appendChild($poid);
 	$consultation->appendChild($status);
+	$consultation->appendChild($consultationDate);
 
 	$consultations->appendChild($consultation);
 
