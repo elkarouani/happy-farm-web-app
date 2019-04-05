@@ -1,5 +1,6 @@
 // caching DOM
 const vealGroupsTable = document.getElementById("myTable");
+const foodQuantityInput = document.getElementById("foodQuantityInput");
 
 message = document.getElementById('message');
 xml = new XMLHttpRequest();
@@ -12,6 +13,18 @@ getXmlData = (xml) => {
     }
     return xmlData;
 };
+
+const extractFoodInfo = (xml) => {
+    xml = new XMLHttpRequest();
+    xml.open('GET', 'database/stock.xml', false);
+    xml.send();
+    
+    let nourriture = getXmlData(xml).getElementsByTagName("nourriture")[0];
+    let prix = nourriture.getElementsByTagName("prix")[0].firstChild.data;
+    let quantite = nourriture.getElementsByTagName("quantite")[0].firstChild.data;
+    
+    return new Array(prix, quantite);
+}
 
 const extractVealsFromXml = (xml) => {
 	xml.open('GET', 'database/farm.xml', false);
@@ -68,5 +81,5 @@ const fillTable = (veals) => {
 
 // main : 
 fillTable(extractVealsFromXml(xml));
-
+foodQuantityInput.setAttribute("max", extractFoodInfo(xml)[1]);
 // events : 
