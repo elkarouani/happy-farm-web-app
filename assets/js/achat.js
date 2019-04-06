@@ -60,7 +60,6 @@ const insertVeal = (xml, data) => {
 	            message.innerHTML = xml.responseText;
 	        }
 	    }
-		
 	    xml.send("market="+data[i][0]+"&origin="+data[i][1]+"&weight="+data[i][2]+"&age="+data[i][3]+"&price="+data[i][4]+"&quantity="+data[i][5]+"&action=insert");
 	}
 }
@@ -154,6 +153,7 @@ addVealButton.addEventListener('click', (event) => {
 	let priceToGive = [];
 	let totalWeight = 0;
 	let reservedCharge = 0;
+	let index = 0;
 	for(let i = 0 ; i < lines.length ; i++){
 		let choiceSelector = lines[i].lastChild.firstChild;
 		if (choiceSelector.checked) {
@@ -165,12 +165,12 @@ addVealButton.addEventListener('click', (event) => {
 			let quantity = lines[i].childNodes[5].firstChild.value;
 			
 			totalWeight +=  parseInt(weight) * parseInt(quantity);
-			vealsToInsert[i] = new Array(market, origin, weight, age, price, quantity);
-			originsToUpdate[i] = new Array(origin, quantity);
-			priceToGive[i] = new Array(price, quantity);
+			vealsToInsert[index] = new Array(market, origin, weight, age, price, quantity);
+			originsToUpdate[index] = new Array(origin, quantity);
+			priceToGive[index] = new Array(price, quantity);
+			index++;
 		}
 	}
 	purchaseOperations(xml, totalWeight, vealsToInsert, originsToUpdate, priceToGive);
-	
 })
 

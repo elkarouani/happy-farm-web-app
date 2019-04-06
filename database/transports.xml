@@ -2,19 +2,19 @@
 <transportations>
 	<transport>
 		<reference>transport 1</reference>
-		<title>title 1</title>
-		<telephone>phone 1</telephone>
-		<adresse>adresse 1</adresse>
+		<title>RapideTransport</title>
+		<telephone>0668751519</telephone>
+		<adresse>Casablanca</adresse>
 		<charge>1000</charge>
 		<prix>500</prix>
 		<reserve>true</reserve>
-		<expire>04-05-2019</expire>
+		<expire>06-05-2019</expire>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>
-		<title>title 2</title>
-		<telephone>phone 2</telephone>
-		<adresse>adresse 2</adresse>
+		<title>speed animals</title>
+		<telephone>0668751520</telephone>
+		<adresse>Rabat</adresse>
 		<charge>2000</charge>
 		<prix>700</prix>
 		<reserve>false</reserve>
@@ -22,9 +22,9 @@
 	</transport>
 	<transport>
 		<reference>transport 3</reference>
-		<title>title 3</title>
-		<telephone>phone 3</telephone>
-		<adresse>adresse 3</adresse>
+		<title>happyWeels</title>
+		<telephone>0668751520</telephone>
+		<adresse>Agadir</adresse>
 		<charge>3000</charge>
 		<prix>1200</prix>
 		<reserve>false</reserve>

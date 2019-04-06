@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<farm><veal><reference>JDIDA1</reference><market>Souk bab lkhmiss</market><origin>jdida</origin><weight>50</weight><age>10</age><bougthBy>2000</bougthBy><quarentaine>14-05-2019</quarentaine><disponible>false</disponible><consultation>false</consultation><status>sain</status></veal><veal><reference>TAZA1</reference><market>larb3et wlad Omran</market><origin>taza</origin><weight>40</weight><age>11</age><bougthBy>4000</bougthBy><quarentaine>14-05-2019</quarentaine><disponible>false</disponible><consultation>false</consultation><status>malade</status></veal></farm>
+<farm></farm>

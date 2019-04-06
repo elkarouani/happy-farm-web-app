@@ -108,7 +108,7 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                        <a href="connexionPage.html" class="btn btn-primary">Oui</a>
+                        <a href="index.html" class="btn btn-primary">Oui</a>
                     </div>
                 </div>
             </div>

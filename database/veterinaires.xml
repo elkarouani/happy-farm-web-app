@@ -2,17 +2,17 @@
 
 <veterinaires>
 	<veterinaire>
-		<cin>H111111</cin>
-		<nom>doctor 1</nom>
-		<ville>ville 1</ville>
-		<adresse>adresse 1</adresse>
-		<telephone>0666666666</telephone>
+		<cin>HA211367</cin>
+		<nom>D.Elkarouani</nom>
+		<ville>Youssoufia</ville>
+		<adresse>QU DAKHLA RUE AGADIR N°67</adresse>
+		<telephone>0666857013</telephone>
 	</veterinaire>
 	<veterinaire>
-		<cin>H222222</cin>
-		<nom>doctor 2</nom>
-		<ville>ville 2</ville>
-		<adresse>adresse 2</adresse>
-		<telephone>0666666666</telephone>
+		<cin>S489155</cin>
+		<nom>D.Houari</nom>
+		<ville>Casablanca</ville>
+		<adresse>Hay lirat Rue Sbaa N°78</adresse>
+		<telephone>0687566548</telephone>
 	</veterinaire>
 </veterinaires>

@@ -90,6 +90,20 @@ const updateUserInfo = (xml, price) => {
     xml.send("price="+price+"&action=updateBudget");
 }
 
+const updateVealsGroupQuantity = (xml, reference) => {
+	xml = new XMLHttpRequest();
+	xml.open('POST', 'api/groupsInfoUpdateService.php', true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	xml.onreadystatechange = () => {
+        if (xml.readyState == 4 && xml.status == 200) {
+            console.log(xml.responseText);
+        }
+    }
+	
+    xml.send("reference="+reference+"&action=afterDeath");
+}
+
 const sendMessage = (totalPrice, origins) => {
 	console.log('great');
 	// xml = new XMLHttpRequest();
@@ -98,8 +112,13 @@ const sendMessage = (totalPrice, origins) => {
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
+        	console.log(xml.responseText);
+        	$("#sellModal").modal('hide');
             message.style.display = 'block';
             message.innerHTML = "L'opération de vente est términer avec succées";
+            setTimeout(function(){
+			    location.reload(); 
+			}, 3000);
         } else {
         	console.log('there is an error');
         }
@@ -181,11 +200,11 @@ async function sellingOperations(xml, totalWeight, packet) {
 				if (!found) {origins[origins.length] = new Array(origin, 1);}
 
 				totalPrice += price;
+				updateVealsGroupQuantity(xml, reference);
 				removeVeal(xml, reference);
 				updateUserInfo(xml, price);
 			}
 		}
-		
 		sendMessage(totalPrice, origins);
 	}
 	else {

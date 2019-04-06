@@ -2,18 +2,18 @@
 <stock>
 	<nourriture>
 		<prix>10</prix>
-		<quantite>64</quantite>
+		<quantite>59</quantite>
 	</nourriture>
 	<medicaments>
 		<medicament>
-			<titre>titre1</titre>
+			<titre>Baytril 100</titre>
 			<prix>200</prix>
-			<quantite>101</quantite>
+			<quantite>100</quantite>
 		</medicament>
 		<medicament>
-			<titre>titre2</titre>
+			<titre>Excenelertu</titre>
 			<prix>250</prix>
-			<quantite>111</quantite>
+			<quantite>110</quantite>
 		</medicament>
 	</medicaments>
 </stock>

@@ -14,13 +14,28 @@
 					<th>Poid</th>
 					<th>Age</th>
 					<th>Prix</th>
-					<th>Vente</th>
+					<th>Selectionner</th>
 				</tr>
 			</thead>
 			<tbody  id="myTable" ></tbody>
 		</table>
-		<button id="removeVeal" type="button" class="btn btn-success">Valider</button><br><br>
+		<button type="button" class="btn btn-primary" style="padding: 10px 30px 10px 30px;" data-toggle="modal" data-target="#sellModal">Valider</button><br><br>
 	</div>            
 </div>
 
+<div class="modal fade" id="sellModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content text-center">
+  <div class="modal-body">
+    Voulez vous vraiment vendre ces veaux ?
+  </div>
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+    <button id="removeVeal" type="button" class="btn btn-primary">Oui</button>
+  </div>
+</div>
+</div>
+</div>
+
 <script src="assets/js/vente.js"></script>
+
