@@ -6,7 +6,7 @@
 		<poid>50</poid>
 		<age>10</age>
 		<prix>2000</prix>
-		<max>4</max>
+		<max>0</max>
 	</group>
 	<group>
 		<market>larb3et wlad Omran</market>
@@ -14,7 +14,7 @@
 		<poid>40</poid>
 		<age>11</age>
 		<prix>4000</prix>
-		<max>8</max>
+		<max>4</max>
 	</group>
 	<group>
 		<market>tlat sidibenour</market>

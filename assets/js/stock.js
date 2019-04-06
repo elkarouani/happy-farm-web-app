@@ -156,7 +156,7 @@ async function foodPurchaseOperations () {
 
 async function medicencePurchaseOperations (medicenceTitle, medicenceQuantity, price) {
     let availableCharge = await getAvailableCharge(xml);
-    if (availableCharge >= medicenceQuantity) {
+    if (parseInt(availableCharge) >= parseInt(medicenceQuantity)) {
         decreaseUserBudget(xml, price);    
         addMedicineQuantity(xml, medicenceTitle, medicenceQuantity);
     } else {

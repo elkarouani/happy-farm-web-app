@@ -2,13 +2,13 @@
 <stock>
 	<nourriture>
 		<prix>10</prix>
-		<quantite>59</quantite>
+		<quantite>159</quantite>
 	</nourriture>
 	<medicaments>
 		<medicament>
 			<titre>Baytril 100</titre>
 			<prix>200</prix>
-			<quantite>100</quantite>
+			<quantite>104</quantite>
 		</medicament>
 		<medicament>
 			<titre>Excenelertu</titre>
