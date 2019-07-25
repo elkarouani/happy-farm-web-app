@@ -2,7 +2,7 @@
 <stock>
 	<nourriture>
 		<prix>10</prix>
-		<quantite>159</quantite>
+		<quantite>167</quantite>
 	</nourriture>
 	<medicaments>
 		<medicament>
@@ -13,7 +13,7 @@
 		<medicament>
 			<titre>Excenelertu</titre>
 			<prix>250</prix>
-			<quantite>110</quantite>
+			<quantite>113</quantite>
 		</medicament>
 	</medicaments>
 </stock>

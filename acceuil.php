@@ -114,7 +114,7 @@
             </div>
         </div>
         
-        <script src="assets/js/home.js"></script>
+        <script type="module" src="assets/js/home.js"></script>
         <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
         <script src="assets/js/jquery.js"></script>
         <script src="assets/js/popper.js"></script>

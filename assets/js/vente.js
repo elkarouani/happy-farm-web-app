@@ -200,8 +200,8 @@ async function sellingOperations(xml, totalWeight, packet) {
 				if (!found) {origins[origins.length] = new Array(origin, 1);}
 
 				totalPrice += price;
-				updateVealsGroupQuantity(xml, reference);
-				removeVeal(xml, reference);
+				await updateVealsGroupQuantity(xml, reference);
+				await removeVeal(xml, reference);
 				updateUserInfo(xml, price);
 			}
 		}

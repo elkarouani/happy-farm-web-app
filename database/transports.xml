@@ -8,7 +8,7 @@
 		<charge>1000</charge>
 		<prix>500</prix>
 		<reserve>true</reserve>
-		<expire>06-05-2019</expire>
+		<expire>25-07-2019</expire>
 	</transport>
 	<transport>
 		<reference>transport 2</reference>
@@ -27,7 +27,7 @@
 		<adresse>Agadir</adresse>
 		<charge>3000</charge>
 		<prix>1200</prix>
-		<reserve>false</reserve>
-		<expire/>
+		<reserve>true</reserve>
+		<expire>08-05-2019</expire>
 	</transport>
 </transportations>
