@@ -1,3 +1,5 @@
+import { getNedeedClass } from './helper.js';
+
 // caching DOM
 const nameInput = document.getElementById("nameInput");
 const emailInput = document.getElementById("emailInput");
@@ -5,16 +7,16 @@ const passwordInput = document.getElementById("passwordInput");
 const budgetInput = document.getElementById("budgetInput");
 const saveButton = document.getElementById("saveButton");
 message = document.getElementById('message');
-xml = new XMLHttpRequest();
+// xml = new XMLHttpRequest();
 
 // methods : 
-getXmlData = (xml) => {
-    xmlData = xml.responseText;
-    if (xmlData) {
-        return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
-    }
-    return xmlData;
-};
+// getXmlData = (xml) => {
+//     xmlData = xml.responseText;
+//     if (xmlData) {
+//         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
+//     }
+//     return xmlData;
+// };
 
 const extractAllUserInfoFromXml = (xml) => {
     xml.open('GET', 'database/users.xml', false);
@@ -46,12 +48,19 @@ const saveUserInfo = (xml) => {
 };
 
 // main : 
-nameInput.value = extractAllUserInfoFromXml(xml)[0];
-emailInput.value = extractAllUserInfoFromXml(xml)[1];
-passwordInput.value = extractAllUserInfoFromXml(xml)[2];
-budgetInput.value = extractAllUserInfoFromXml(xml)[3];
+// nameInput.value = extractAllUserInfoFromXml(xml)[0];
+nameInput.value = getNedeedClass('User').username;
+emailInput.value = getNedeedClass('User').email;
+passwordInput.value = getNedeedClass('User').password;
+budgetInput.value = getNedeedClass('User').budget;
 
 // events : 
-saveButton.addEventListener("click", (event) => {
-    saveUserInfo(xml);
+saveButton.addEventListener("click", (event) => { 
+    let user = getNedeedClass('User');
+    user.newUser({"username": nameInput.value, "email": emailInput.value, "password": passwordInput.value, "budget": budgetInput.value});
+    user.username = nameInput.value;
+    user.email = emailInput.value;
+    user.password = passwordInput.value;
+    user.budget = budgetInput.value;
+    user.updateUserInfo();
 });

@@ -6,25 +6,31 @@ export default class XmlReader {
     get xmlObject() { return this._xml; }
 
     getXmlData(xmlObject) {
-        let data = xmlObject.responseText;
-        if (data) {
-            return (new DOMParser()).parseFromString(xmlObject.responseText, 'text/xml');
-        }
-        return data;
+        if (xmlObject.responseText) { return (new DOMParser()).parseFromString(xmlObject.responseText, 'text/xml'); }
+        return xmlObject.responseText;
     }
 
     readData(path) {
-        this._xml.open('GET', path, false);
-        this._xml.send();
-        return this.getXmlData(this._xml);
+        let xml = this._xml;
+        let result = '';
+        xml.open('GET', path, true);
+        xml.send();
+        xml.onreadystatechange = function() {
+            if (xml.readyState == XMLHttpRequest.DONE ) {
+                if(xml.status == 200){
+                   result = (new XmlReader()).getXmlData(xml);
+                }
+            }
+        }
+        setTimeout(() => { return result; }, 4000)
     } 
 
     sendRequest(path, args, callback) {
         this._xml.open('POST', path, true);
-        this._xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        this._xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         this._xml.send((args != null) ? args : '');
         this._xml.onreadystatechange = () => {
-            if (this._xml.readyState == 4 && this._xml.status == 200) { callback(this._xml.responseText) }
+            if (this._xml.readyState == 4 && this._xml.status == 200) { callback(this._xml.responseText); }
         }
     }
 }
