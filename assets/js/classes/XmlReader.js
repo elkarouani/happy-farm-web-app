@@ -12,17 +12,21 @@ export default class XmlReader {
 
     readData(path) {
         let xml = this._xml;
-        let result = '';
-        xml.open('GET', path, true);
-        xml.send();
-        xml.onreadystatechange = function() {
-            if (xml.readyState == XMLHttpRequest.DONE ) {
-                if(xml.status == 200){
-                   result = (new XmlReader()).getXmlData(xml);
+        return new Promise(function (resolve, reject) { 
+            xml.open('GET', path, true);
+            xml.onreadystatechange = function() {
+                if (xml.readyState == XMLHttpRequest.DONE ) {
+                    if(xml.status == 200){
+                       resolve((new XmlReader()).getXmlData(xml));
+                    }
+                    reject({ status: this.status, statusText: xml.statusText })
                 }
             }
-        }
-        setTimeout(() => { return result; }, 4000)
+            xml.onerror = function () {
+                reject({ status: this.status, statusText: xml.statusText })
+            }
+            xml.send();
+        })
     } 
 
     sendRequest(path, args, callback) {

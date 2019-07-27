@@ -2,12 +2,7 @@ import { getNedeedClass } from "../helper.js";
 
 export default class User {
     constructor() {
-        // let user = getNedeedClass('XmlReader').readData('database/users.xml').getElementsByTagName("user")[0];
-        let user = this.getExternData();
-        this._username = user.getElementsByTagName("name")[0].firstChild.data;
-        this._email = user.getElementsByTagName("email")[0].firstChild.data;
-        this._password = user.getElementsByTagName("password")[0].firstChild.data;
-        this._budget = user.getElementsByTagName("budget")[0].firstChild.data;
+        this.getExternData();
     }
 
     get username() { return this._username; }
@@ -21,7 +16,8 @@ export default class User {
     set budget(budget) { this._budget = budget; }
 
     async getExternData() {
-        return await getNedeedClass('XmlReader').readData('database/users.xml').getElementsByTagName("user")[0];
+        let result = await getNedeedClass('XmlReader').readData('database/users.xml').getElementsByTagName("user")[0];
+        console.log(result);
     }
 
     newUser(data) {
