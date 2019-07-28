@@ -1,15 +1,11 @@
-import { getNedeedClass } from './helper.js';
+import { getNedeedClass, getNedeedDom } from './helper.js';
 
-// caching DOM
-const greeting = (document.getElementById('greeting') != null) ? document.getElementById('greeting') : null;
-const message1 = document.getElementById("message1");
-const message2 = document.getElementById("message2");
-const messageBlock1 = document.getElementById("messageBlock1");
-const messageBlock2 = document.getElementById("messageBlock2");
-
-// main : 
-if (greeting != null) { 
-    greeting.innerHTML = `Bienvenue : <ion-icon name='person' style='margin-left: 10px;'></ion-icon>${getNedeedClass('User').username}`; 
+if (getNedeedDom('greeting') != null) { 
+    let user = getNedeedClass('User');
+    setTimeout( () => { getNedeedDom('greeting').innerHTML = `Bienvenue : <ion-icon name='person' style='margin-left: 10px;'></ion-icon>${user.username}`; }, 4000);
 }
-getNedeedClass('Notification').checkForVealsDisponibilty();
-getNedeedClass('Notification').checkForTransportsExpiration();
+
+setTimeout( () => { 
+    getNedeedClass('Notification').checkForVealsDisponibilty();
+    getNedeedClass('Notification').checkForTransportsExpiration();
+}, 6000);

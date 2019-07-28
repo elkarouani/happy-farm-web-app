@@ -1,4 +1,4 @@
-import { getNedeedClass } from "../helper.js";
+import { getNedeedClass, getNedeedDom } from "../helper.js";
 
 export default class User {
     constructor() { this.getExternData(); }
@@ -33,8 +33,8 @@ export default class User {
 
     updateUserInfo() {
         let callback = (response) => { 
-            message.style.display = 'block'; message.innerHTML = "Veuiller patienter ... ";
-            setTimeout(() => { message.innerHTML = response; }, 10000);
+            getNedeedDom('message').style.display = 'block'; getNedeedDom('message').innerHTML = "Veuiller patienter ... ";
+            setTimeout(() => { getNedeedDom('message').innerHTML = response; }, 10000);
         }
         let args = ""+
             "name="+this._username+"&"+
