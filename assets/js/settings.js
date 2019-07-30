@@ -1,7 +1,7 @@
 import { getNedeedClass, getNedeedDom } from './helper.js';
 
 let user = getNedeedClass('User');
-getNedeedDom('message').style.display = 'block'; getNedeedDom('message').innerHTML = "En train de récupérer ... ";
+getNedeedDom('message').style.display = 'block'; getNedeedDom('message').innerHTML = "En train de récupérer les données ... ";
 setTimeout(() => {  
     getNedeedDom('nameInput').value = user.username;
     getNedeedDom('emailInput').value = user.email;

@@ -5,6 +5,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .sidenav {
+                margin-top: 20px; 
+                text-align: center;
+            }
+            .sidenav a {
+                text-decoration: none;
+                background-color: white;
+                padding: 1rem 2rem;
+                width: 16rem;
+                transition: 1s ease all;
+            }
+            .sidenav a:first-child { border-radius: 15px 15px 0 0; }
+            .sidenav a:last-child { border-radius: 0 0 15px 15px; }
+            .sidenav a:hover { background-color: #6cf7a6; color: #13c431; font-size: 1.2rem; }
+            .navbar { background-color: white !important; }
+            #greeting { padding: 10px 30px 0 0; color: #595359; }
+        </style>
     </head> 
     <body style="background-image: url('assets/img/pic1.jpg'); background-size: cover;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,16 +48,16 @@
   
         <div class="container-fluid text-center">    
             <div class="row content">
-                <div class="col-sm-2 sidenav">
-                    <div class="btn-group-vertical  btn-group btn-group-lg">
-                        <a class="btn btn-info" href="acceuil.php?action=transportation">Réservation des transports</a>
-                        <a class="btn btn-info" href="acceuil.php?action=achat">Achat des voaux</a>
-                        <a class="btn btn-info" href="acceuil.php?action=quarentaine">Quarentaine</a>
-                        <a class="btn btn-info" href="acceuil.php?action=disponibles">Voaux Disponibles</a>
-                        <a class="btn btn-info" href="acceuil.php?action=consultation">Consultation de santé</a>
-                        <a class="btn btn-info" href="acceuil.php?action=prestation">Prestation</a>
-                        <a class="btn btn-info" href="acceuil.php?action=stock">Stock</a>
-                        <a class="btn btn-info" href="acceuil.php?action=vente">Vente des voaux</a>
+                <div class="col-sm-3 sidenav">
+                    <div class="btn-group-vertical btn-group btn-group-lg">
+                        <a href="acceuil.php?action=transportation">Réservation</a>
+                        <a href="acceuil.php?action=achat">Achat des voaux</a>
+                        <a href="acceuil.php?action=quarentaine">Quarentaine</a>
+                        <a href="acceuil.php?action=disponibles">Voaux Disponibles</a>
+                        <a href="acceuil.php?action=consultation">Consultation de santé</a>
+                        <a href="acceuil.php?action=prestation">Prestation</a>
+                        <a href="acceuil.php?action=stock">Stock</a>
+                        <a href="acceuil.php?action=vente">Vente des voaux</a>
                     </div>
                 </div>
                 

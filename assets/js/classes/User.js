@@ -34,7 +34,7 @@ export default class User {
     updateUserInfo() {
         let callback = (response) => { 
             getNedeedDom('message').style.display = 'block'; getNedeedDom('message').innerHTML = "Veuiller patienter ... ";
-            setTimeout(() => { getNedeedDom('message').innerHTML = response; }, 10000);
+            setTimeout(() => { getNedeedDom('message').innerHTML = response; }, 2000);
         }
         let args = ""+
             "name="+this._username+"&"+
