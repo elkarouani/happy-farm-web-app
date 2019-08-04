@@ -66,7 +66,7 @@
                         <?php include("Transport.html"); ?>
                     </div>
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'settings'): ?>
-                    <div class="col-sm-9"> 
+                    <div class="col-sm-7"> 
                         <?php include("Settings.html"); ?>
                     </div>
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'achat'): ?>
