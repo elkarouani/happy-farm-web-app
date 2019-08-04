@@ -98,7 +98,7 @@
                         <?php include("Vente.html"); ?>
                     </div>
                 <?php else: ?>
-                    <div class="col-sm-9 text-right" style="padding-left: 150px;"> 
+                    <div class="col-sm-8 text-right" style="padding-left: 150px;"> 
                         <h4 id="greeting"></h4><br><br>
                         <div id="messageBlock1" class="alert alert-warning alert-dismissible fade show text-center" role="alert" hidden="hidden">
                           <p id="message1"></p>
@@ -106,7 +106,7 @@
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <div id="messageBlock2" class="alert alert-warning alert-dismissible fade show text-center" role="alert" hidden="hidden">
+                        <div id="messageBlock2" class="alert alert-warning alert-dismissible fade show text-center" role="alert" hidden="hidden" style="margin-right: 7rem;">
                           <p id="message2"></p>
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
