@@ -1,32 +1,7 @@
-const emailInput = document.getElementById("emailInput");
-const passwordInput = document.getElementById("passwordInput");
-const save = document.getElementById("save");
-const messageOutput = document.getElementById("message");
-const xml = new XMLHttpRequest();
+import { getNedeedClass, getNedeedDom } from "./helper.js";
 
-const getXmlData = (xml) => {
-    xmlData = xml.responseText;
-    if (xmlData) {
-        return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
-    }
-    return xmlData;
-}
-
-const extractUserInfoFromXml = (xml) => {
-    xml.open('GET', 'database/users.xml', false);
-    xml.send();
-    
-    let user = getXmlData(xml).getElementsByTagName("user")[0];
-    
-    let email = user.getElementsByTagName("email")[0].firstChild.data;
-    let password = user.getElementsByTagName("password")[0].firstChild.data;
-    
-    return new Array(email, password);
-}
-
-save.addEventListener('click', (event) => {
-    let data = extractUserInfoFromXml(xml);
-    if (data[0] == emailInput.value && data[1] == passwordInput.value) {
-        window.location.replace("acceuil.php");
-    }
+getNedeedDom('save').addEventListener('click', (event) => {
+    let user = getNedeedClass('User');
+    getNedeedDom('message').style.display = "block"; getNedeedDom('message').innerText = "En train d'accées ...";
+    setTimeout(() => { if (user.email == getNedeedDom('emailInput').value && user.password == getNedeedDom('passwordInput').value) { getNedeedDom('message').innerText = "l'accée est succée"; window.location.replace("acceuil.php"); } else { getNedeedDom('message').innerText = "les informations d'accée sont incorrectes !"; } }, 3000);
 });
