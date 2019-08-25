@@ -62,7 +62,7 @@
                 </div>
                 
                 <?php if (isset($_GET['action']) && $_GET['action'] == 'transportation'): ?>
-                    <div class="col-sm-9"> 
+                    <div class="col-sm-7" style="margin-top: 5rem;"> 
                         <?php include("Transport.html"); ?>
                     </div>
                 <?php elseif (isset($_GET['action']) && $_GET['action'] == 'settings'): ?>

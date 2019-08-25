@@ -1,7 +1,12 @@
-import { getNedeedClass, getNedeedDom } from "./helper.js";
+import { getNedeedClass, displayDomElement, EditDomElementInnerText, DomElementValue, setEventListener } from "./helper.js";
 
-getNedeedDom('save').addEventListener('click', (event) => {
+setEventListener('save', 'click', () => {
     let user = getNedeedClass('User');
-    getNedeedDom('message').style.display = "block"; getNedeedDom('message').innerText = "En train d'accées ...";
-    setTimeout(() => { if (user.email == getNedeedDom('emailInput').value && user.password == getNedeedDom('passwordInput').value) { getNedeedDom('message').innerText = "l'accée est succée"; window.location.replace("acceuil.php"); } else { getNedeedDom('message').innerText = "les informations d'accée sont incorrectes !"; } }, 3000);
-});
+    displayDomElement('message', 'on', () => { EditDomElementInnerText('message', "En train d'accées ..."); }); 
+    
+    setTimeout(() => { 
+        if (user.checkAccessAuthenticity(DomElementValue('emailInput'), DomElementValue('passwordInput'))) 
+        { EditDomElementInnerText('message', "l'accée est succée", () => { window.location.replace("acceuil.php"); }); } 
+        else { EditDomElementInnerText('message', "les informations d'accée sont incorrectes !"); } 
+    }, 3000);
+})

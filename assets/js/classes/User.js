@@ -44,4 +44,6 @@ export default class User {
             "action=settings";
         getNedeedClass('XmlReader').sendRequest('api/userInfoUpdateService.php', args, callback);
     }
+
+    checkAccessAuthenticity (email, password) { return this._email == email && this._password == password; }
 }
