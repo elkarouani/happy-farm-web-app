@@ -1,6 +1,7 @@
 import User from "./classes/User.js";
 import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
+import Home from "./classes/apps/Home.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
@@ -10,6 +11,14 @@ export function getNedeedClass (classname) {
     ]);
 
     return new (classesMap.get(classname))();
+}
+
+export function getNedeedApp (appname) {
+    const appsMap = new Map([
+        ['Home', Home]
+    ]);
+
+    return new (appsMap.get(appname))();
 }
 
 export function getNedeedDom (className) {
@@ -23,6 +32,11 @@ export function displayDomElement (className, action, callback = null) {
 
 export function EditDomElementInnerText (className, innerText, callback = null) {
     getNedeedDom(className).innerText = innerText;
+    if (callback != null) {callback();}
+}
+
+export function EditDomElementInnerHtml (className, innerHtml, callback = null) {
+    getNedeedDom(className).innerHTML = innerHtml;
     if (callback != null) {callback();}
 }
 
