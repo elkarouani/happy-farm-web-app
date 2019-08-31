@@ -3,6 +3,7 @@ import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
 import Home from "./classes/apps/Home.js";
 import Settings from "./classes/apps/Settings.js";
+import SignIn from "./classes/apps/SignIn.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
@@ -16,6 +17,7 @@ export function getNedeedClass (classname) {
 
 export function getNedeedApp (appname) {
     const appsMap = new Map([
+        ['SignIn', SignIn],
         ['Home', Home],
         ['Settings', Settings]
     ]);
