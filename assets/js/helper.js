@@ -46,6 +46,13 @@ export function DomElementValue (className) { return getNedeedDom(className).val
 
 export function setDomElementValue (className, value) { getNedeedDom(className).value = value; }
 
-export function setEventListener (className, eventName, callback) {
-    getNedeedDom(className).addEventListener(eventName, event => callback());
+export function setEventListener (className, events, callback) {
+    events.forEach(eventname => { getNedeedDom(className).addEventListener(eventname, event => callback()); });
+}
+
+export function setEventListenerSchema (schema, callback) {
+    Object.keys(schema).map(function(objectKey) {
+        if (Array.isArray(schema[objectKey])) { getNedeedDom(objectKey).addEventListener(schema[objectKey][0], event => { if (event.keyCode === schema[objectKey][1]) { callback(); } }); }
+        else { getNedeedDom(objectKey).addEventListener(schema[objectKey], event => callback()); }
+    });
 }

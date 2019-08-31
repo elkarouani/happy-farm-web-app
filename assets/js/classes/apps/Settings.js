@@ -21,7 +21,7 @@ export default class Settings {
 
     initSaveEvent () {
         let user = this.userClass;
-        setEventListener('saveButton', 'click', () => {
+        setEventListener('saveButton', ['click'], () => {
             user.newUser({"username": DomElementValue('nameInput'), "email": DomElementValue('emailInput'), "password": DomElementValue('passwordInput'), "budget": DomElementValue('budgetInput')});
             user.updateUserInfo();
         } )
