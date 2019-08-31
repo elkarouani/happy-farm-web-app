@@ -2,6 +2,7 @@ import User from "./classes/User.js";
 import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
 import Home from "./classes/apps/Home.js";
+import Settings from "./classes/apps/Settings.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
@@ -15,7 +16,8 @@ export function getNedeedClass (classname) {
 
 export function getNedeedApp (appname) {
     const appsMap = new Map([
-        ['Home', Home]
+        ['Home', Home],
+        ['Settings', Settings]
     ]);
 
     return new (appsMap.get(appname))();
@@ -41,6 +43,8 @@ export function EditDomElementInnerHtml (className, innerHtml, callback = null) 
 }
 
 export function DomElementValue (className) { return getNedeedDom(className).value; }
+
+export function setDomElementValue (className, value) { getNedeedDom(className).value = value; }
 
 export function setEventListener (className, eventName, callback) {
     getNedeedDom(className).addEventListener(eventName, event => callback());

@@ -1,3 +1,5 @@
 1. Connection page script ... updated
 2. home page script ... updated
 3. settings page script ... on cheching
+
+(!): enter key use on sign in page
