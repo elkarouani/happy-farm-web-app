@@ -1,7 +1,5 @@
 export default class XmlReader {
-    constructor() {
-        this._xml = new XMLHttpRequest();
-    }
+    constructor() { this._xml = new XMLHttpRequest(); }
 
     get xmlObject() { return this._xml; }
 

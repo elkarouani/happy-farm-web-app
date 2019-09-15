@@ -4,12 +4,14 @@ import XmlReader from "./classes/XmlReader.js";
 import Home from "./classes/apps/Home.js";
 import Settings from "./classes/apps/Settings.js";
 import SignIn from "./classes/apps/SignIn.js";
+import Transports from "./classes/Transports.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
         ['User', User], 
         ['Notification', Notification],
-        ['XmlReader', XmlReader]
+        ['XmlReader', XmlReader],
+        ['Transports', Transports]
     ]);
 
     return new (classesMap.get(classname))();
@@ -57,4 +59,25 @@ export function setEventListenerSchema (schema, callback) {
         if (Array.isArray(schema[objectKey])) { getNedeedDom(objectKey).addEventListener(schema[objectKey][0], event => { if (event.keyCode === schema[objectKey][1]) { callback(); } }); }
         else { getNedeedDom(objectKey).addEventListener(schema[objectKey], event => callback()); }
     });
+}
+
+export function appendChildToDomElement (className, childname, callback = null) { 
+    getNedeedDom(className).appendChild(childname); 
+    if (callback != null) {callback();}
+}
+
+export function setAttributeToDOMElement (className, attributename, value, callback = null) {
+    getNedeedDom(className).setAttribute(attributename, value);
+    if (callback != null) {callback();}
+}
+
+export function removeAttributeFromDomElement (className, attributename, callback = null) {
+    getNedeedDom(className).removeAttribute(attributename);
+    if (callback != null) {callback();}
+}
+
+export function createDomElement (tagname, options) { 
+    let element = document.createElement(tagname);
+    Object.keys(options).map(function(objectKey) { element.setAttribute(objectKey, options[objectKey]); });
+    return element;
 }

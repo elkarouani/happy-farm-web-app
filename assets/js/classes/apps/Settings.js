@@ -14,7 +14,7 @@ export default class Settings {
             setDomElementValue('passwordInput', user.password);
             setDomElementValue('budgetInput', user.budget);
             displayDomElement('message', 'off');
-        }, 5000);
+        }, 6000);
 
         return this;
     }

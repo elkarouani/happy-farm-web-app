@@ -1,6 +1,4 @@
 1. Connection page script ... updated
 2. home page script ... updated
 3. settings page script ... updated
-
-
-(!): init sign in event method on sign in app
+4. transport reservation page script ... working on it

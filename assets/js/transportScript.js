@@ -1,28 +1,16 @@
+import { getNedeedDom, EditDomElementInnerHtml, appendChildToDomElement, displayDomElement, setEventListener, DomElementValue, setAttributeToDOMElement, removeAttributeFromDomElement, getNedeedClass, createDomElement } from "./helper.js";
+
 // Caching DOM : 
-const transportsSelection = document.getElementById('transportsSelection');
-const transportTable = document.getElementById('transportTable');
-const message = document.getElementById('message');
-const reserveZone = document.getElementById("reserveZone");
-const reserveButton = document.getElementById('reserveButton');
-const commandZone = document.getElementById('commandZone');
-const tableTitle = document.getElementById("tableTitle");
-const reservationModalHandler = document.getElementById("reservationModalHandler");
-xml = new XMLHttpRequest();
+let xml = new XMLHttpRequest();
 let price = 0;
 
 // helpers :
-getXmlData = (xml) => {
-    xmlData = xml.responseText;
+const getXmlData = (xml) => {
+    let xmlData = xml.responseText;
     if (xmlData) {
         return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
     }
     return xmlData;
-}
-
-const extractTransportsFromXml = (xml) => {
-	xml.open('GET', 'database/transports.xml', false);
-	xml.send();
-    return getXmlData(xml).getElementsByTagName("transport");
 }
 
 const extractUserBudgetFromXml = (xml) => {
@@ -34,19 +22,15 @@ const extractUserBudgetFromXml = (xml) => {
     return user.getElementsByTagName("budget")[0].firstChild.data;
 }
 
-const fillSelectInput = (transports) => {
-    transportsSelection.innerHTML = "";
-    let item = document.createElement('option');
-    item.value = " ";
-  	transportsSelection.appendChild(item);
-    for(var i = 0, length = transports.length ; i < length; i++){
-    	let item = document.createElement('option');
-    	if(transports[i].childNodes[13].firstChild.data == "false"){
-	    	item.value = transports[i].childNodes[3].firstChild.data;
-	    	item.innerHTML = transports[i].childNodes[3].firstChild.data;
-	    	transportsSelection.appendChild(item);
-    	}
-    }
+const fillSelectInput = () => {
+	let Transports = getNedeedClass('Transports'); 
+	EditDomElementInnerHtml('transportsSelection', '', () => { appendChildToDomElement('transportsSelection', createDomElement('option', { value : " " })); });
+	
+	setTimeout(()=>{
+		Transports.collection.forEach(transport => {
+			if(transport.reserve == "false") { appendChildToDomElement('transportsSelection', createDomElement('option', { value: transport.title, label : transport.title })); }
+		});
+	}, 1000); 
 }
 
 const getTransportPrice = (transport) => {
@@ -76,8 +60,7 @@ const updateUserBudget = (xml, newBudget) => {
     
     xml.onreadystatechange = () => {
         if (xml.readyState == 4 && xml.status == 200) {
-        	message.style.display = 'block';
-			message.innerHTML = "Well reserved";
+			displayDomElement('message', 'on', EditDomElementInnerHtml('message', "Well reserved"));
 		}
     }
 
@@ -99,24 +82,22 @@ const updateTransportInfo = (xml, transport) => {
 }
 
 // Main :
-let transports = extractTransportsFromXml(xml);
-fillSelectInput(transports);
+// getNedeedClass('XmlReader').readData('database/transports.xml').then( (value) => { fillSelectInput(value.getElementsByTagName("transport")); })
+fillSelectInput();
 
 // Events :
-transportsSelection.addEventListener('change', (event) => {
-	if (transportsSelection.value == " ") {reservationModalHandler.setAttribute("disabled", "disabled");}
-	else{reservationModalHandler.removeAttribute("disabled");}
-
-	commandZone.setAttribute("class", "row justify-content-between");
-	transportTable.removeAttribute("hidden");
-	reserveZone.removeAttribute("hidden");
-	tableTitle.removeAttribute("hidden");
-	reservationModalHandler.removeAttribute("hidden");
-	message.style.display = "none";
+setEventListener('transportsSelection', ['change'], (event) => {
+	if (DomElementValue('transportsSelection') == " ") {setAttributeToDOMElement('reservationModalHandler', "disabled", "disabled");}
+	else {removeAttributeFromDomElement('reservationModalHandler', 'disabled');}
+	setAttributeToDOMElement('commandZone', 'class', "row justify-content-between", 
+		removeAttributeFromDomElement('transportTable', 'hidden', 
+		removeAttributeFromDomElement("reserveZone", "hidden", 
+		removeAttributeFromDomElement('tableTitle', "hidden", 
+		removeAttributeFromDomElement("reservationModalHandler", "hidden", displayDomElement('message', 'off'))))));
 	for(var i = 0, length = transports.length ; i < length; i++){
     	let title = transports[i].childNodes[3].firstChild.data;
-    	if (transportsSelection.value == title) {
-			let ligne = transportTable.childNodes[3].childNodes[0]; 
+    	if (DomElementValue('transportsSelection') == title) {
+			let ligne = getNedeedDom('transportTable').childNodes[3].childNodes[0]; 
 			if (ligne.innerHTML != "") {
 				ligne.innerHTML = "";
 				fillTable(transports[i], ligne);
@@ -127,22 +108,20 @@ transportsSelection.addEventListener('change', (event) => {
 			}
     	}
     }
-});
+})
 
-reserveButton.addEventListener('click', (event) => {
+setEventListener('reserveButton', ['click'], (event) => {
 	if (parseFloat(extractUserBudgetFromXml(xml)) >= price) {
 		updateUserBudget(xml, (parseFloat(extractUserBudgetFromXml(xml)) - price));
-		updateTransportInfo(xml, transportsSelection.value);
+		updateTransportInfo(xml,DomElementValue('transportsSelection'));
 		$('#reservationModal').modal('hide');
-		tableTitle.setAttribute("hidden", "hidden");
-		transportTable.setAttribute("hidden", "hidden");
-		transportsSelection.childNodes[transportsSelection.selectedIndex].setAttribute("disabled", "disabled");
-		transportsSelection.selectedIndex = 0;
-		reservationModalHandler.setAttribute("disabled", "disabled");
+		setAttributeToDOMElement('tableTitle', "hidden", "hidden", setAttributeToDOMElement('transportTable', "hidden", "hidden"));
+		getNedeedDom('transportsSelection').childNodes[getNedeedDom('transportsSelection').selectedIndex].setAttribute("disabled", "disabled");
+		getNedeedDom('transportsSelection').selectedIndex = 0;
+		setAttributeToDOMElement('reservationModalHandler', "disabled", "disabled");
 	} else {
-		message.style.display = 'block';
-		message.innerHTML = "You don't have more budget to buy this transport";
+		displayDomElement('message', 'on', EditDomElementInnerHtml('message', "You don't have more budget to buy this transport"));
 		event.preventDefault();
 		$('#reservationModal').modal('hide');
 	}
-});
+})
