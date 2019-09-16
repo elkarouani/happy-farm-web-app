@@ -20,11 +20,14 @@ export default class Transport {
         } )
     }
 
-    get collection () { return this._collection; }
-    
     getTransportByReference (reference) { 
-        this._collection.forEach(transport => { if(transport.reference == reference) { return transport; } });
-        return null;     
+        let output = null;
+        this._collection.forEach(transport => { 
+            if(transport.reference == reference) { 
+                output = transport;
+            } 
+        });
+        return output;     
     }
 
     getNotReservedTransports () { return this._collection.map( transport => (transport.reserve == "false") ? transport.reference : null ); }

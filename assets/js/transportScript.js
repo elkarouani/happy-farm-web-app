@@ -1,8 +1,33 @@
-import { getNedeedDom, EditDomElementInnerHtml, appendChildToDomElement, displayDomElement, setEventListener, DomElementValue, setAttributeToDOMElement, removeAttributeFromDomElement, getNedeedClass, createDomElement } from "./helper.js";
+import { getNedeedDom, EditDomElementInnerHtml, EditDomElementInnerText, appendChildToDomElement, displayDomElement, setEventListener, DomElementValue, setAttributeToDOMElement, removeAttributeFromDomElement, getNedeedClass, createDomElement } from "./helper.js";
 
 // Caching DOM : 
 let xml = new XMLHttpRequest();
 let price = 0;
+
+// functionnality #1
+const FillInTransportsSelectionInputs = () => {
+	// Initiate Transports class object
+	let Transports = getNedeedClass('Transports'); 
+
+	// Clear transports Selections inputs
+	EditDomElementInnerHtml('transportsSelection', '', () => { 
+		appendChildToDomElement('transportsSelection', createDomElement('option', { value : " " })); 
+	});
+	
+	// Fill transports selection with data
+	setTimeout(()=>{
+		Transports.getNotReservedTransports().forEach(reference => {
+			if (reference != null) {
+				appendChildToDomElement('transportsSelection', 
+					createDomElement('option', { 
+						value: reference, 
+						label : Transports.getTransportByReference(reference).title 
+					})
+				); 
+			}
+		});
+	}, 1000); 
+}
 
 // helpers :
 const getXmlData = (xml) => {
@@ -22,49 +47,8 @@ const extractUserBudgetFromXml = (xml) => {
     return user.getElementsByTagName("budget")[0].firstChild.data;
 }
 
-// functionnality #1
-const FillInTransportsSelectionInputs = () => {
-	// Initiate Transports class object
-	let Transports = getNedeedClass('Transports'); 
-
-	// Clear transports Selections inputs
-	EditDomElementInnerHtml('transportsSelection', '', () => { 
-		appendChildToDomElement('transportsSelection', createDomElement('option', { value : " " })); 
-	});
-	
-	// Fill transports selection with data
-	setTimeout(()=>{
-		Transports.getNotReservedTransports().forEach(reference => {
-			if (reference != null) {
-				appendChildToDomElement('transportsSelection', 
-					createDomElement('option', { 
-						value: Transports.getTransportByReference(reference).title, 
-						label : Transports.getTransportByReference(reference).title 
-					})
-				); 
-			}
-		});
-	}, 1000); 
-}
-
 const getTransportPrice = (transport) => {
 	return transport.childNodes[11].firstChild.data;
-}
-
-const fillTable = (transports, ligne) => {
-	let ref = document.createElement("td");
-	let title = document.createElement("td");
-	let telephone = document.createElement("td");
-	let adresse = document.createElement("td");
-	let charge = document.createElement("td");
-	let price = document.createElement("td");
-	ref.innerHTML = transports.childNodes[1].firstChild.data;
-	title.innerHTML = transports.childNodes[3].firstChild.data;
-	telephone.innerHTML = transports.childNodes[5].firstChild.data;
-	adresse.innerHTML = transports.childNodes[7].firstChild.data;
-	charge.innerHTML = transports.childNodes[9].firstChild.data;
-	price.innerHTML = transports.childNodes[11].firstChild.data;
-	ligne.append(ref, title, telephone, adresse, charge, price);
 }
 
 const updateUserBudget = (xml, newBudget) => {
@@ -99,28 +83,26 @@ const updateTransportInfo = (xml, transport) => {
 FillInTransportsSelectionInputs();
 
 // Events :
+// event #1
 setEventListener('transportsSelection', ['change'], (event) => {
-	if (DomElementValue('transportsSelection') == " ") {setAttributeToDOMElement('reservationModalHandler', "disabled", "disabled");}
-	else {removeAttributeFromDomElement('reservationModalHandler', 'disabled');}
-	setAttributeToDOMElement('commandZone', 'class', "row justify-content-between", 
-		removeAttributeFromDomElement('transportTable', 'hidden', 
-		removeAttributeFromDomElement("reserveZone", "hidden", 
-		removeAttributeFromDomElement('tableTitle', "hidden", 
-		removeAttributeFromDomElement("reservationModalHandler", "hidden", displayDomElement('message', 'off'))))));
-	for(var i = 0, length = transports.length ; i < length; i++){
-    	let title = transports[i].childNodes[3].firstChild.data;
-    	if (DomElementValue('transportsSelection') == title) {
-			let ligne = getNedeedDom('transportTable').childNodes[3].childNodes[0]; 
-			if (ligne.innerHTML != "") {
-				ligne.innerHTML = "";
-				fillTable(transports[i], ligne);
-				price = parseFloat(getTransportPrice(transports[i]));
-			}else {
-				fillTable(transports[i], ligne);
-				price = parseFloat(getTransportPrice(transports[i]));
-			}
-    	}
-    }
+	// init transport class object
+	let transports = getNedeedClass('Transports');
+
+	// if choice selected has empty value hide necessery components
+	if (DomElementValue('transportsSelection') == " ") { setAttributeToDOMElement('reservationModalHandler', "disabled", "disabled", setAttributeToDOMElement('commandZone', 'class', 'row d-flex justify-content-center', setAttributeToDOMElement('transportTable', 'hidden', 'hidden', setAttributeToDOMElement("reserveZone", "hidden", 'hidden', setAttributeToDOMElement('tableTitle', "hidden", 'hidden', setAttributeToDOMElement("reservationModalHandler", "hidden", "hidden", displayDomElement('message', 'off'))))))); }
+	
+	// else show them with filling the table with selected transport infos
+	else { 
+		removeAttributeFromDomElement('reservationModalHandler', 'disabled', setAttributeToDOMElement('commandZone', 'class', "row justify-content-between", removeAttributeFromDomElement('transportTable', 'hidden', removeAttributeFromDomElement("reserveZone", "hidden", removeAttributeFromDomElement('tableTitle', "hidden", removeAttributeFromDomElement("reservationModalHandler", "hidden", displayDomElement('message', 'off'))))))); 
+		setTimeout( () => {
+			EditDomElementInnerText('ReferenceCell', transports.getTransportByReference(DomElementValue('transportsSelection')).reference);
+			EditDomElementInnerText('TitleCell', transports.getTransportByReference(DomElementValue('transportsSelection')).title);
+			EditDomElementInnerText('TelephoneCell', transports.getTransportByReference(DomElementValue('transportsSelection')).telephone);
+			EditDomElementInnerText('AdresseCell', transports.getTransportByReference(DomElementValue('transportsSelection')).adresse);
+			EditDomElementInnerText('ChargeCell', transports.getTransportByReference(DomElementValue('transportsSelection')).charge);
+			EditDomElementInnerText('PriceCell', transports.getTransportByReference(DomElementValue('transportsSelection')).charge);
+		}, 1000 )
+	}
 })
 
 setEventListener('reserveButton', ['click'], (event) => {

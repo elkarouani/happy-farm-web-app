@@ -61,8 +61,8 @@ export function setEventListenerSchema (schema, callback) {
     });
 }
 
-export function appendChildToDomElement (className, childname, callback = null) { 
-    getNedeedDom(className).appendChild(childname); 
+export function appendChildToDomElement (className, child, callback = null) { 
+    getNedeedDom(className).appendChild(child); 
     if (callback != null) {callback();}
 }
 
