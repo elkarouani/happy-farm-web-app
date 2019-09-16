@@ -21,5 +21,11 @@ export default class Transport {
     }
 
     get collection () { return this._collection; }
+    
+    getTransportByReference (reference) { 
+        this._collection.forEach(transport => { if(transport.reference == reference) { return transport; } });
+        return null;     
+    }
 
+    getNotReservedTransports () { return this._collection.map( transport => (transport.reserve == "false") ? transport.reference : null ); }
 }

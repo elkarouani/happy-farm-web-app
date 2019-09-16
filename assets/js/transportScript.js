@@ -22,13 +22,27 @@ const extractUserBudgetFromXml = (xml) => {
     return user.getElementsByTagName("budget")[0].firstChild.data;
 }
 
-const fillSelectInput = () => {
+// functionnality #1
+const FillInTransportsSelectionInputs = () => {
+	// Initiate Transports class object
 	let Transports = getNedeedClass('Transports'); 
-	EditDomElementInnerHtml('transportsSelection', '', () => { appendChildToDomElement('transportsSelection', createDomElement('option', { value : " " })); });
+
+	// Clear transports Selections inputs
+	EditDomElementInnerHtml('transportsSelection', '', () => { 
+		appendChildToDomElement('transportsSelection', createDomElement('option', { value : " " })); 
+	});
 	
+	// Fill transports selection with data
 	setTimeout(()=>{
-		Transports.collection.forEach(transport => {
-			if(transport.reserve == "false") { appendChildToDomElement('transportsSelection', createDomElement('option', { value: transport.title, label : transport.title })); }
+		Transports.getNotReservedTransports().forEach(reference => {
+			if (reference != null) {
+				appendChildToDomElement('transportsSelection', 
+					createDomElement('option', { 
+						value: Transports.getTransportByReference(reference).title, 
+						label : Transports.getTransportByReference(reference).title 
+					})
+				); 
+			}
 		});
 	}, 1000); 
 }
@@ -82,8 +96,7 @@ const updateTransportInfo = (xml, transport) => {
 }
 
 // Main :
-// getNedeedClass('XmlReader').readData('database/transports.xml').then( (value) => { fillSelectInput(value.getElementsByTagName("transport")); })
-fillSelectInput();
+FillInTransportsSelectionInputs();
 
 // Events :
 setEventListener('transportsSelection', ['change'], (event) => {
