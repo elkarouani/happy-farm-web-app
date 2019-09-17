@@ -3,6 +3,7 @@ import User from "./classes/User.js";
 import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
 import Transports from "./classes/Transports.js";
+import Veals from "./classes/Veals.js";
 
 // Apps
 import Home from "./classes/apps/Home.js";
@@ -15,7 +16,8 @@ export function getNedeedClass (classname) {
         ['User', User], 
         ['Notification', Notification],
         ['XmlReader', XmlReader],
-        ['Transports', Transports]
+        ['Transports', Transports],
+        ['Veals', Veals]
     ]);
 
     return new (classesMap.get(classname))();
