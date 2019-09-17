@@ -1,10 +1,14 @@
+// classes
 import User from "./classes/User.js";
 import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
+import Transports from "./classes/Transports.js";
+
+// Apps
 import Home from "./classes/apps/Home.js";
 import Settings from "./classes/apps/Settings.js";
 import SignIn from "./classes/apps/SignIn.js";
-import Transports from "./classes/Transports.js";
+import TransportsReservations from "./classes/apps/TransportsReservations.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
@@ -21,7 +25,8 @@ export function getNedeedApp (appname) {
     const appsMap = new Map([
         ['SignIn', SignIn],
         ['Home', Home],
-        ['Settings', Settings]
+        ['Settings', Settings],
+        ['TransportsReservations', TransportsReservations]
     ]);
 
     return new (appsMap.get(appname))();
@@ -51,7 +56,7 @@ export function DomElementValue (className) { return getNedeedDom(className).val
 export function setDomElementValue (className, value) { getNedeedDom(className).value = value; }
 
 export function setEventListener (className, events, callback) {
-    events.forEach(eventname => { getNedeedDom(className).addEventListener(eventname, event => callback()); });
+    events.forEach(eventname => { getNedeedDom(className).addEventListener(eventname, event => callback(event)); });
 }
 
 export function setEventListenerSchema (schema, callback) {

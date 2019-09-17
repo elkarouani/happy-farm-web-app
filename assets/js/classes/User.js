@@ -6,7 +6,7 @@ export default class User {
     get username() { return this._username; }
     get email() { return this._email; }
     get password() { return this._password; }
-    get budget() { return this._budget; }
+    get budget() { return parseFloat(this._budget); }
 
     set username(username) { this._username = username; }
     set email(email) { this._email = email; }
