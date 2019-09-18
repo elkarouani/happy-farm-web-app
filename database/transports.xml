@@ -18,7 +18,7 @@
 		<charge>2000</charge>
 		<prix>700</prix>
 		<reserve>false</reserve>
-		<expire></expire>
+		<expire/>
 	</transport>
 	<transport>
 		<reference>transport 3</reference>
