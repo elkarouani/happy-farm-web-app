@@ -10,6 +10,7 @@ import Home from "./classes/apps/Home.js";
 import Settings from "./classes/apps/Settings.js";
 import SignIn from "./classes/apps/SignIn.js";
 import TransportsReservations from "./classes/apps/TransportsReservations.js";
+import VealsBuying from "./classes/apps/VealsBuying.js";
 
 export function getNedeedClass (classname) {
     const classesMap = new Map([
@@ -28,7 +29,8 @@ export function getNedeedApp (appname) {
         ['SignIn', SignIn],
         ['Home', Home],
         ['Settings', Settings],
-        ['TransportsReservations', TransportsReservations]
+        ['TransportsReservations', TransportsReservations],
+        ['VealsBuying', VealsBuying]
     ]);
 
     return new (appsMap.get(appname))();

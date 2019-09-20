@@ -48,7 +48,7 @@
 		}
 
 		if ($xml->save('../database/farm.xml') != false) {
-			echo 'Veaux sont achetés avec succées';
+			echo 'le processus d\'achat en cours ...';
 		}
 	}
 

@@ -14,7 +14,7 @@
 		<poid>40</poid>
 		<age>11</age>
 		<prix>4000</prix>
-		<max>4</max>
+		<max>5</max>
 	</group>
 	<group>
 		<market>tlat sidibenour</market>
@@ -22,7 +22,7 @@
 		<poid>10</poid>
 		<age>4</age>
 		<prix>20</prix>
-		<max>11</max>
+		<max>10</max>
 	</group>
 	<group>
 		<market>Souk baladi</market>
