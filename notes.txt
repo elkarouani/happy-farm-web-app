@@ -2,4 +2,7 @@
 2. home page script ... updated
 3. settings page script ... updated
 4. transport reservation page script ... updated
-5. buying animals page script ... working on it
+5. buying animals page script ... updated
+6. Quarentaine page script ... working on it
+
+! fix the proper insert of veals on xml file to avoid problems

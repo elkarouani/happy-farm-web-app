@@ -11,11 +11,56 @@ export default class VealsBuying {
     get Transports () { return this._transports; }
     get User () { return this._user; }
 
+    getSelectedTotalWeight (tableRows) { 
+        let output = 0;
+        for (let line of tableRows) { 
+            if(line.lastChild.firstChild.checked) { 
+                output += this.Veals.getGroupById(line.id).poid * parseInt(line.childNodes[5].firstChild.value); 
+            } 
+        } 
+
+        return output;
+    }
+
+    getVealsToInsertList (tableRows) { 
+        let output = [];
+        for (let line of tableRows) { 
+            if(line.lastChild.firstChild.checked) { 
+                output.push({ info: this.Veals.getGroupById(line.id), quantity: parseInt(line.childNodes[5].firstChild.value) });
+            } 
+        } 
+
+        return output;
+    }
+
+    getVealsToInsertIdsList (tableRows) {
+        let output = [];
+        for (let line of tableRows) { 
+            if(line.lastChild.firstChild.checked) { 
+                output.push({id: line.id, quantity: parseInt(line.childNodes[5].firstChild.value)});
+            } 
+        } 
+
+        return output;
+    }
+
+    getTotalPrice (tableRows) {
+        let output = 0;
+        for (let line of tableRows) { 
+            if(line.lastChild.firstChild.checked) { 
+                output += this.Veals.getGroupById(line.id).prix * parseInt(line.childNodes[5].firstChild.value);
+            } 
+        } 
+
+        return output;
+    }
+
     fillWithVealGroups () {
         setTimeout( () => {
             // for each veal in the veals collection ... 
             this.Veals.collection.forEach((veal, index) => {
                 // if the kind of the veal is exist then ...
+                console.log(this.Veals.collection[0]);
                 if (veal.max > 0) {
                     // insert its informations in the table
                     let row = getNedeedDom('myTable').insertRow(index);
@@ -42,6 +87,28 @@ export default class VealsBuying {
     }
 
     initBuyingVealsEvent () {
-
+        setEventListener('addVeal', ['click'], event => {
+            setTimeout( () => { 
+                // so if the transportation's charge is enough to transport the veals
+                if (this.Transports.totalChargeReserved() >= this.getSelectedTotalWeight(getNedeedDom('myTable').getElementsByTagName("tr"))) {
+                    $("#purachaseModal").modal('hide');
+                    // execute buying veals process and put them in the farm
+                    this.Veals.buyVeal(this.getVealsToInsertList(getNedeedDom('myTable').getElementsByTagName("tr")));	
+                    // decrease the number of all kinds choosed
+                    setTimeout( () => { this.Veals.updateGroupsInfo(this.getVealsToInsertIdsList(getNedeedDom('myTable').getElementsByTagName("tr"))); }, 1000 * this.getVealsToInsertList(getNedeedDom('myTable').getElementsByTagName("tr")).length );
+                    // decrease the budget with the gived price
+                    setTimeout( () => {  
+                        this.User.newUser( { username: this.User.username, email: this.User.email, password: this.User.password, budget: this.User.budget - this.getTotalPrice(getNedeedDom('myTable').getElementsByTagName("tr")) } );
+                        this.User.updateUserInfo();	
+                    }, 2000 * this.getVealsToInsertIdsList(getNedeedDom('myTable').getElementsByTagName("tr")).length )
+                    // reload the page
+                    setTimeout(function(){ location.reload(); }, 3000 * this.getVealsToInsertIdsList(getNedeedDom('myTable').getElementsByTagName("tr")).length);
+                }
+                // if the transportation isn't enough, inform it 
+                else { displayDomElement('message', 'on', EditDomElementInnerHtml('message', "Transportation insuffisant", ()=>{$("#purachaseModal").modal('hide');})) }
+            }, 3000 )
+        })
+        
+        return this;
     }
 }
