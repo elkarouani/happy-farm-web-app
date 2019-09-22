@@ -6,7 +6,7 @@
 		<poid>50</poid>
 		<age>10</age>
 		<prix>2000</prix>
-		<max>0</max>
+		<max>8</max>
 	</group>
 	<group>
 		<market>larb3et wlad Omran</market>
@@ -14,7 +14,7 @@
 		<poid>40</poid>
 		<age>11</age>
 		<prix>4000</prix>
-		<max>0</max>
+		<max>8</max>
 	</group>
 	<group>
 		<market>tlat sidibenour</market>
@@ -22,7 +22,7 @@
 		<poid>10</poid>
 		<age>4</age>
 		<prix>20</prix>
-		<max>0</max>
+		<max>10</max>
 	</group>
 	<group>
 		<market>Souk baladi</market>
@@ -30,6 +30,6 @@
 		<poid>10</poid>
 		<age>8</age>
 		<prix>125</prix>
-		<max>0</max>
+		<max>10</max>
 	</group>
 </groups>

@@ -1,51 +1,31 @@
+import { getNedeedClass, getNedeedDom, setAttributeToDOMElement, EditDomElementInnerHtml } from "./helper.js";
 // caching DOM
 const vealGroupsTable = document.getElementById("myTable");
 const filterInput = document.getElementById("myInput");
 const demandeServe = document.getElementById("demandeServe");
-const entireTable = document.getElementById("entireTable");
-const contentSection = document.getElementById("contentSection");
 
-message = document.getElementById('message');
-xml = new XMLHttpRequest();
+let message = document.getElementById('message');
+let xml = new XMLHttpRequest();
 
-// methods : 
-getXmlData = (xml) => {
-    xmlData = xml.responseText;
-    if (xmlData) {
-        return (new DOMParser()).parseFromString(xml.responseText, 'text/xml');
-    }
-    return xmlData;
-};
+// functionality 1#
+const fillWithVealGroups = () => {
+	// needed classes
+	let Farm = getNedeedClass('Farm');
 
-const extractVealsFromXml = (xml) => {
-	xml.open('GET', 'database/farm.xml', false);
-	xml.send();
-    return getXmlData(xml).getElementsByTagName("veal");
-}
-
-const fillWithVealGroups = (veals) => {
+	setTimeout( () => {
+		Farm.collection.forEach((veal, index) => {
+			// insert its informations in the table
+			let row = getNedeedDom('myTable').insertRow(index);
+			row.insertCell(0).innerHTML = veal.reference;
+			row.insertCell(1).innerHTML = veal.origin;
+			row.insertCell(2).innerHTML = veal.poid;
+			row.insertCell(3).innerHTML = veal.age;
+			row.insertCell(4).innerHTML = veal.boughtBy;
+			row.insertCell(5).innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
+		});
+	}, 1000 )
 	
-	for (let i = 0; i < veals.length; i++) {
-		if (veals[i].childNodes[7].firstChild.data == "false" && veals[i].childNodes[8].firstChild.data == "false") {
-			let newLine = document.createElement("tr");
-			let refCell = document.createElement("td");
-			let originCell = document.createElement("td");
-			let weightCell = document.createElement("td");
-			let ageCell = document.createElement("td");
-			let priceCell = document.createElement("td");
-			let choicePointerCell = document.createElement("td");
-			
-			refCell.innerHTML = veals[i].childNodes[0].firstChild.data;
-			originCell.innerHTML = veals[i].childNodes[2].firstChild.data;
-			weightCell.innerHTML = veals[i].childNodes[3].firstChild.data;
-			ageCell.innerHTML = veals[i].childNodes[4].firstChild.data;
-			priceCell.innerHTML = veals[i].childNodes[5].firstChild.data;
-			choicePointerCell.innerHTML = `<input class="form-control" type="checkbox" name="choice">`;
-
-			newLine.append(refCell, originCell, weightCell, ageCell, priceCell, choicePointerCell);
-			vealGroupsTable.appendChild(newLine);
-		}
-	}
+	setTimeout( () => { if(getNedeedDom('myTable').childNodes.length == 0) { setAttributeToDOMElement(getNedeedDom('entireTable'), 'hidden', 'hidden', EditDomElementInnerHtml('contentSection', "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux pour les acheter encore !</div><br/><br/>")); } }, 2000 )
 }
 
 const moveOutFromQuarentaine = (xml, reference) => {
@@ -64,11 +44,7 @@ const moveOutFromQuarentaine = (xml, reference) => {
 }
 
 // main : 
-fillWithVealGroups(extractVealsFromXml(xml));
-if(vealGroupsTable.childNodes.length == 0){
-	entireTable.setAttribute("hidden", "hidden");
-	contentSection.innerHTML = "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux dans la quarentaine encore !</div><br/><br/>";
-}
+fillWithVealGroups();
 
 // events : 
 filterInput.addEventListener('keyup', (event) => {

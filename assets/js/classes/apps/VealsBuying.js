@@ -1,4 +1,4 @@
-import { getNedeedDom, getNedeedClass, setEventListener, DomElementValue, displayDomElement, EditDomElementInnerHtml } from "../../helper.js";
+import { getNedeedDom, getNedeedClass, setEventListener, DomElementValue, displayDomElement, EditDomElementInnerHtml, setAttributeToDOMElement } from "../../helper.js";
 
 export default class VealsBuying {
     constructor () {
@@ -60,9 +60,9 @@ export default class VealsBuying {
             // for each veal in the veals collection ... 
             this.Veals.collection.forEach((veal, index) => {
                 // if the kind of the veal is exist then ...
-                console.log(this.Veals.collection[0]);
                 if (veal.max > 0) {
                     // insert its informations in the table
+                    console.log('me 1');
                     let row = getNedeedDom('myTable').insertRow(index);
                     row.setAttribute('id', veal.id);				
                     row.insertCell(0).innerHTML = veal.market;
@@ -77,6 +77,8 @@ export default class VealsBuying {
                 }
             });
         }, 1000 );
+
+        setTimeout( () => { if(getNedeedDom('myTable').childNodes.length == 0) { setAttributeToDOMElement(getNedeedDom('entireTable'), 'hidden', 'hidden', EditDomElementInnerHtml('contentSection', "<div class='alert alert-dark' role='alert' style='margin: 40px 0 0 20px;'>Il n'y a pas des veaux pour les acheter encore !</div><br/><br/>")); } }, 2000 )
 
         return this;
     }

@@ -4,6 +4,7 @@ import Notification from "./classes/Notification.js";
 import XmlReader from "./classes/XmlReader.js";
 import Transports from "./classes/Transports.js";
 import Veals from "./classes/Veals.js";
+import Farm from "./classes/Farm.js";
 
 // Apps
 import Home from "./classes/apps/Home.js";
@@ -18,7 +19,8 @@ export function getNedeedClass (classname) {
         ['Notification', Notification],
         ['XmlReader', XmlReader],
         ['Transports', Transports],
-        ['Veals', Veals]
+        ['Veals', Veals],
+        ['Farm', Farm]
     ]);
 
     return new (classesMap.get(classname))();
@@ -76,7 +78,8 @@ export function appendChildToDomElement (className, child, callback = null) {
 }
 
 export function setAttributeToDOMElement (className, attributename, value, callback = null) {
-    getNedeedDom(className).setAttribute(attributename, value);
+    if (typeof className != "string") { className.setAttribute(attributename, value); }
+    else { getNedeedDom(className).setAttribute(attributename, value); }
     if (callback != null) {callback();}
 }
 
